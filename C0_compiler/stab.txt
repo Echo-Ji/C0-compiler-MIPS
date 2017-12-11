@@ -1,0 +1,283 @@
+     CONST	       INT	    maxlen	       100
+     CONST	       INT	  stepmask	        -1
+     CONST	      CHAR	      PLUS	        43
+     CONST	      CHAR	     TIMES	        42
+     CONST	      CHAR	     minus	        45
+     CONST	      CHAR	       div	        47
+       VAR	       INT	      size	          
+       VAR	       INT	      step	          
+       VAR	       INT	     start	          
+       VAR	       INT	       end	          
+       VAR	       INT	    varray	       100
+       VAR	      CHAR	        op	          
+      FUNC	      Fact	          	          
+       JNE	        @0	         0	   label_0
+      DIVV	     minus	      1000	        $0
+       SUB	        $0	         1	        $1
+       MUL	       div	        $1	        $2
+       ADD	        $2	      PLUS	        $3
+       SUB	        $3	     TIMES	        $4
+      DIVV	        -1	     TIMES	        $5
+       SUB	        $4	        $5	        $6
+       NEG	         1	          	        $7
+       ADD	        $7	         2	        $8
+       MUL	        47	        $8	        $9
+       ADD	        $6	        $9	       $10
+       RET	       $10	          	          
+       JMP	          	          	   label_1
+label_0:
+       SUB	        @0	         1	       $11
+     PARAV	       $11	          	          
+      CALL	      Fact	          	          
+       MOV	      ~$V0	          	       $12
+       MUL	        @0	       $12	       $13
+       RET	       $13	          	          
+label_1:
+     EFUNC	      Fact	          	          
+      FUNC	  arrayGen	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       JLE	      size	    maxlen	   label_2
+     WRITE	     _str0	          	          
+       RET	         0	          	          
+       JMP	          	          	   label_3
+label_2:
+       MOV	         0	          	        %0
+       MOV	         0	          	        %1
+label_4:
+       JGE	        %0	      size	   label_5
+       MUL	      step	        %0	       $14
+       ADD	     start	       $14	       $15
+       MOV	       $15	          	varray[%0]
+       MOV	varray[%0]	          	       $16
+       ADD	        %1	       $16	       $17
+       MOV	       $17	          	        %1
+       ADD	        %0	         1	       $18
+       MOV	       $18	          	        %0
+       JMP	          	          	   label_4
+label_5:
+     WRITE	     _str1	          	          
+       RET	        %1	          	          
+label_3:
+     EFUNC	  arrayGen	          	          
+      FUNC	   toLower	          	          
+       JGE	        @0	        65	   label_6
+     WRITE	     _str2	          	          
+       JMP	          	          	   label_9
+label_6:
+       JLE	        @0	        90	   label_8
+     WRITE	     _str3	          	          
+       JMP	          	          	   label_9
+label_8:
+       ADD	        @0	        32	       $19
+       MOV	       $19	          	        @0
+label_9:
+       RET	        @0	          	          
+     EFUNC	   toLower	          	          
+      FUNC	   toUpper	          	          
+       JLE	        @0	       122	  label_10
+     WRITE	     _str4	          	          
+       JMP	          	          	  label_13
+label_10:
+       JGE	        @0	        97	  label_12
+     WRITE	     _str5	          	          
+       JMP	          	          	  label_13
+label_12:
+       SUB	        @0	        32	       $20
+       MOV	       $20	          	        @0
+label_13:
+       RET	        @0	          	          
+     EFUNC	   toUpper	          	          
+      FUNC	   stepSet	          	          
+       MOV	        @0	          	      step
+     EFUNC	   stepSet	          	          
+      FUNC	 exprCheck	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	      CHAR	          	          
+     WRITE	     _str6	          	          
+     WRITE	     _str7	          	          
+      READ	          	          	        %0
+      READ	          	          	        %4
+      READ	          	          	        %1
+     WRITE	          	        %0	          
+     WRITE	          	        %4	          
+     WRITE	          	        %1	          
+     WRITE	     _str8	          	          
+       MOV	         1	          	        %3
+       JNE	        %4	        43	  label_15
+       ADD	        %0	        %1	       $21
+       MOV	       $21	          	        %2
+     WRITE	          	        %2	          
+       MOV	         0	          	        %3
+       JMP	          	          	  label_20
+label_15:
+       JNE	        %4	        45	  label_16
+       SUB	        %0	        %1	       $22
+       MOV	       $22	          	        %2
+     WRITE	          	        %2	          
+       MOV	         0	          	        %3
+       JMP	          	          	  label_20
+label_16:
+       JNE	        %4	        42	  label_17
+       MUL	        %0	        %1	       $23
+       MOV	       $23	          	        %2
+     WRITE	          	        %2	          
+       MOV	         0	          	        %3
+       JMP	          	          	  label_20
+label_17:
+       JNE	        %4	        47	  label_20
+       MOV	         0	          	        %3
+       JNE	        %1	         0	  label_19
+     WRITE	     _str9	          	          
+       JMP	          	          	  label_20
+label_19:
+      DIVV	        %0	        %1	       $24
+       MOV	       $24	          	        %2
+     WRITE	          	        %2	          
+label_20:
+        JZ	        %3	          	  label_21
+     WRITE	    _str10	        %4	          
+     WRITE	    _str11	          	          
+       JMP	          	          	  label_21
+label_21:
+     WRITE	    _str12	          	          
+     EFUNC	 exprCheck	          	          
+      FUNC	 arrayChek	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+     WRITE	    _str13	          	          
+     WRITE	    _str14	          	          
+      READ	          	          	      size
+      READ	          	          	      step
+      READ	          	          	     start
+        JE	      step	         0	  label_23
+     PARAV	      step	          	          
+      CALL	   stepSet	          	          
+       JMP	          	          	  label_24
+label_23:
+     PARAV	         1	          	          
+      CALL	      Fact	          	          
+       MOV	      ~$V0	          	       $25
+     PARAV	       $25	          	          
+      CALL	   stepSet	          	          
+label_24:
+      CALL	  arrayGen	          	          
+       MOV	      ~$V0	          	       $26
+       JNE	       $26	         0	  label_26
+     WRITE	    _str15	          	          
+      READ	          	          	      size
+       JMP	          	          	  label_24
+label_26:
+       MOV	         0	          	        %0
+       MOV	         0	          	        %1
+label_27:
+       JGE	        %0	      size	  label_28
+       MOV	varray[%0]	          	       $27
+       ADD	        %1	       $27	       $28
+       MOV	       $28	          	        %1
+       ADD	        %0	         1	       $29
+       MOV	       $29	          	        %0
+       JMP	          	          	  label_27
+label_28:
+     WRITE	    _str16	        %1	          
+     WRITE	    _str17	          	          
+     EFUNC	 arrayChek	          	          
+      FUNC	recurCheck	          	          
+       VAR	       INT	          	          
+     WRITE	    _str18	          	          
+     WRITE	    _str19	          	          
+      READ	          	          	        %0
+label_29:
+        JG	        13	        %0	  label_30
+     WRITE	    _str20	          	          
+      READ	          	          	        %0
+       JMP	          	          	  label_29
+label_30:
+     PARAV	        %0	          	          
+      CALL	      Fact	          	          
+       MOV	      ~$V0	          	       $30
+     WRITE	    _str21	       $30	          
+     WRITE	    _str22	          	          
+     EFUNC	recurCheck	          	          
+      FUNC	letterCheck	          	          
+       VAR	      CHAR	          	          
+       VAR	      CHAR	          	          
+     WRITE	    _str23	          	          
+     WRITE	    _str24	          	          
+      READ	          	          	        %0
+     PARAV	        %0	          	          
+      CALL	   toLower	          	          
+       MOV	      ~$V0	          	       $31
+       MOV	       $31	          	        %1
+label_31:
+       JNE	        %0	        %1	  label_32
+     WRITE	    _str25	          	          
+      READ	          	          	        %0
+     PARAV	        %0	          	          
+      CALL	   toLower	          	          
+       MOV	      ~$V0	          	       $32
+       MOV	       $32	          	        %1
+       JMP	          	          	  label_31
+label_32:
+     WRITE	    _str26	        %1	          
+     WRITE	    _str27	          	          
+      READ	          	          	        %0
+     PARAV	        %0	          	          
+      CALL	   toUpper	          	          
+       MOV	      ~$V0	          	       $33
+       MOV	       $33	          	        %1
+label_33:
+       JNE	        %0	        %1	  label_34
+     WRITE	    _str28	          	          
+      READ	          	          	        %0
+     PARAV	        %0	          	          
+      CALL	   toUpper	          	          
+       MOV	      ~$V0	          	       $34
+       MOV	       $34	          	        %1
+       JMP	          	          	  label_33
+label_34:
+     WRITE	    _str29	        %1	          
+     WRITE	    _str30	          	          
+     EFUNC	letterCheck	          	          
+     MAINF	          	          	          
+       VAR	       INT	          	          
+       NEG	         1	          	       $35
+       MOV	       $35	          	        %0
+     WRITE	    _str31	          	          
+     WRITE	    _str32	          	          
+     WRITE	    _str33	          	          
+     WRITE	    _str34	          	          
+     WRITE	    _str35	          	          
+     WRITE	    _str36	          	          
+     WRITE	    _str37	          	          
+     WRITE	    _str38	          	          
+      READ	          	          	        %0
+label_35:
+        JE	        %0	         0	  label_36
+       JNE	        %0	         1	  label_38
+      CALL	 exprCheck	          	          
+       JMP	          	          	  label_37
+label_38:
+       JNE	        %0	         2	  label_39
+      CALL	 arrayChek	          	          
+       JMP	          	          	  label_37
+label_39:
+       JNE	        %0	         3	  label_40
+      CALL	recurCheck	          	          
+       JMP	          	          	  label_37
+label_40:
+       JNE	        %0	         4	  label_41
+      CALL	letterCheck	          	          
+       JMP	          	          	  label_37
+label_41:
+     WRITE	    _str39	        %0	          
+label_37:
+     WRITE	    _str40	          	          
+      READ	          	          	        %0
+       JMP	          	          	  label_35
+label_36:
+     WRITE	    _str41	          	          
+    EMAINF	          	          	          

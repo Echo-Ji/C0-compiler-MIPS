@@ -1,0 +1,39 @@
+const char plus='+',times='*',minus='-',div='/'; 
+
+int Fact(int n)
+{
+    if(n==0)
+       return (+div*(minus/1000-1)+plus-times--1/times+('/'*(-1+2)));
+    else
+        return (n*fact(n-1));
+}
+void recurCheck
+{
+    int i;
+    printf("------Recursive Check Start------");
+    printf("Please input a number and I will give you the factorial:");
+    scanf(i);
+    while(13<=i){
+        printf("Please input a smaller one:");
+        scanf(i);
+    }
+    printf("The factorial of your input is:",fact(i));
+    printf("------Recursive Check Exit------");
+}
+void main()
+{
+    int choice;
+
+    printf("--------------Check Start----------------");
+    printf("Content:");
+    printf("0.Exit");
+    printf("1.Recursive check");
+printf("Please give me your choice(just number):");
+    scanf(choice);
+    while(choice!=0){
+	recurCheck;
+        printf("Please give me your choice(just number):");
+        scanf(choice);
+    }
+    printf("--------------Check Exit-----------------");
+}
