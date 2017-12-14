@@ -354,8 +354,8 @@ void mipsArray(char *name, int offset, int ioffset, int itype) {
 		}
 
 		fprintf(mipsOut, "#######array addr compute\n");
-		fprintf(mipsOut, "sll\t$t2,$t1,2\n");
-		fprintf(mipsOut, "add\t$t2,$t2,$t0\n");
+		fprintf(mipsOut, "sll\t$t2,$t1,2\n");//t2为数组元素偏移
+		fprintf(mipsOut, "sub\t$t2,$t0,$t2\n");//局部数组分配在栈中,栈是向下增长的
 		//fprintf(mipsOut, "lw\t$s0,($t2)\n");
 	}
 }

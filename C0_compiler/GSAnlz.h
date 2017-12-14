@@ -608,7 +608,10 @@ void funcdef () {//从标识符之后开始
 
 	if (sym == LPARENT) {//有参数函数
 		getsym();
-		fparalist();
+		if (sym == RPARENT) { error(31); }
+		else { fparalist(); }
+
+
 		if (sym != RPARENT) {
 			while (sym == IDEN) { getsym(); }
 			skip(sentbegsys, 9, 9); //应该跳读到函数体开始
@@ -1020,17 +1023,24 @@ void writesent() {
 void returnsent() {
 	int type, loc;
 	char var[MAX_IDEN];
+	ret_flag = 1;
 	getsym();
-	if (sym == LPARENT) {
-		ret_flag = 1;
+
+	if (sym == LPARENT) {//----------------return 返回值处理，若为函数为void，则不该有(，若为int，char，则必须进入
+		if (!tab.symtab[tab.btab[btotal]].type) { error(32); }
 		getsym();
-		loc = expr(&type);
-		qtvargen(var, type, 0, 0, loc);
-		emit(RET, var, "", "");
-		if (sym != RPARENT) { skip(sentbegsys,9,9); }
+		if (sym != RPARENT) {//表达式不能为空
+			loc = expr(&type);
+			qtvargen(var, type, 0, 0, loc);
+			emit(RET, var, "", "");
+		}
+		else { error(33); }
+		
+		if (sym != RPARENT) { skip(sentbegsys, 9, 9); }
 		else if (sym != SEMICN) { getsym(); }
 	}
 	else {
+		if (tab.symtab[tab.btab[btotal]].type) { error(32); }
 		emit(RET, "", "", "");
 	}
 	printf("<返回语句> \n");
@@ -1117,6 +1127,12 @@ void sentence() {
 				}
 				else { //无参函数调用
 					flag = npfuncall(loc);
+					if (sym == LPARENT) {
+						error(34);
+						while (sym != SEMICN) {
+							getsym();
+						}
+					}
 				}
 
 				if (flag) {
@@ -1403,9 +1419,19 @@ int factor(int *type, int *index, int *itype) {
 						loc = qtmpgen(tmp, pfuncall(loc));
 					}
 				}
-				else { loc = qtmpgen(tmp, npfuncall(loc)); }
+				else { 
+					loc = qtmpgen(tmp, npfuncall(loc)); 
+					if (sym == LPARENT) {
+						error(34);
+						getsym();
+						while (sym != RPARENT) { getsym();}
+						getsym();
+					}
+				}
 				
 				emit(MOV, "~$V0", "", tmp);//运行栈相关
+
+
 			}
 			else if (tmpkind == K_ARRAY) {//数组处理
 				getsym();
@@ -1458,6 +1484,7 @@ int factor(int *type, int *index, int *itype) {
 			getsym();
 		}
 		else {
+			loc = -1;
 			error(15);
 			getsym();
 		}

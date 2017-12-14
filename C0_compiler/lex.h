@@ -30,7 +30,7 @@ char * rpt[] = {
 
 void error(int errcode) {
 	switch (errcode) {
-	case 0: {
+		case 0: {
 		fprintf(err, "行%d\t列%d\t：多位无符号整数不能有前导零\n", line_num, cc);
 		break;
 	}
@@ -162,6 +162,22 @@ void error(int errcode) {
 		fprintf(err, "行%d\t列%d\t：此声明没有类型说明符\n", line_num, cc);
 		break;
 	}
+	case 31: {
+		fprintf(err, "行%d\t列%d\t：无参函数声明不期望有小括号\n", line_num, cc);
+		break;
+	}
+	case 32: {
+		fprintf(err, "行%d\t列%d\t：不期望的返回值类型\n", line_num, cc);
+		break;
+	}
+	case 33: {
+		fprintf(err, "行%d\t列%d\t：不期望的右括号(表达式不能为空)\n", line_num, cc);
+		break;
+	}
+	case 34: {
+		fprintf(err, "行%d\t列%d\t：无参函数调用不期望有小括号\n", line_num, cc);
+		break;
+	}
 	case 233: {
 		fprintf(err, "行%d\t列%d\t：源文件不完整\n", line_num, cc);
 		break;
@@ -275,7 +291,7 @@ void getsym()
 		sym = QMARK;
 		getch();
 		if (!(isalpha(ch) || isdigit(ch) || ch == '+' ||
-			ch == '-' || ch == '*' || ch == '/')) {
+			ch == '-' || ch == '*' || ch == '/' || ch == '_')) {
 			//非法字符,用\0填充
 			error(1);
 			chcon = '\0';
