@@ -1,0 +1,450 @@
+     CONST	       INT	       MAX	        10
+     CONST	      CHAR	         A	        97
+     CONST	      CHAR	      plus	        43
+     CONST	      CHAR	     minus	        45
+     CONST	      CHAR	      mult	        42
+     CONST	      CHAR	       div	        47
+       VAR	       INT	         n	          
+       VAR	       INT	         x	          
+       VAR	       INT	         y	          
+       VAR	       INT	      kind	          
+       VAR	       INT	         m	          
+       VAR	       INT	       ans	          
+       VAR	       INT	        _a	          
+       VAR	       INT	        _b	          
+       VAR	      CHAR	        ch	          
+       VAR	      CHAR	  alphabet	        26
+      FUNC	testDefine	          	          
+     CONST	       INT	          	         0
+     CONST	       INT	          	         1
+     CONST	       INT	          	         2
+     CONST	       INT	          	         3
+     CONST	       INT	          	         4
+     CONST	       INT	          	         5
+     CONST	       INT	          	         6
+     CONST	       INT	          	         7
+     CONST	       INT	          	         8
+     CONST	       INT	          	         9
+     CONST	       INT	          	        10
+     CONST	       INT	          	        11
+     CONST	       INT	          	        12
+     CONST	       INT	          	        13
+     CONST	       INT	          	        14
+     CONST	       INT	          	        15
+     CONST	       INT	          	        16
+     CONST	       INT	          	        17
+     CONST	       INT	          	        18
+     CONST	       INT	          	        19
+     CONST	       INT	          	         0
+     CONST	       INT	          	        -1
+     CONST	       INT	          	        -2
+     CONST	       INT	          	        -3
+     CONST	       INT	          	        -4
+     CONST	       INT	          	        -5
+     CONST	       INT	          	        -6
+     CONST	       INT	          	        -7
+     CONST	       INT	          	        -8
+     CONST	       INT	          	        -9
+     CONST	       INT	          	       -10
+     CONST	       INT	          	       -11
+     CONST	       INT	          	       -12
+     CONST	       INT	          	       -13
+     CONST	       INT	          	       -14
+     CONST	       INT	          	       -15
+     CONST	       INT	          	       -16
+     CONST	       INT	          	       -17
+     CONST	       INT	          	       -18
+     CONST	       INT	          	       -19
+     CONST	       INT	          	         0
+     CONST	       INT	          	         1
+     CONST	       INT	          	         2
+     CONST	       INT	          	         3
+     CONST	       INT	          	         4
+     CONST	       INT	          	         5
+     CONST	       INT	          	         6
+     CONST	       INT	          	         7
+     CONST	       INT	          	         8
+     CONST	       INT	          	         9
+     CONST	       INT	          	        10
+     CONST	       INT	          	        11
+     CONST	       INT	          	        12
+     CONST	       INT	          	        13
+     CONST	       INT	          	        14
+     CONST	       INT	          	        15
+     CONST	       INT	          	        16
+     CONST	       INT	          	        17
+     CONST	       INT	          	        18
+     CONST	       INT	          	        19
+     CONST	      CHAR	          	        48
+     CONST	      CHAR	          	        49
+     CONST	      CHAR	          	        50
+     CONST	      CHAR	          	        51
+     CONST	      CHAR	          	        52
+     CONST	      CHAR	          	        53
+     CONST	      CHAR	          	        54
+     CONST	      CHAR	          	        55
+     CONST	      CHAR	          	        56
+     CONST	      CHAR	          	        57
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	         1
+       VAR	       INT	          	          
+       VAR	       INT	          	         2
+       VAR	       INT	          	          
+       VAR	       INT	          	         3
+       VAR	       INT	          	          
+       VAR	       INT	          	         4
+       VAR	       INT	          	          
+       VAR	       INT	          	         5
+       VAR	       INT	          	          
+       VAR	       INT	          	         6
+       VAR	       INT	          	          
+       VAR	       INT	          	         7
+       VAR	       INT	          	          
+       VAR	       INT	          	         8
+       VAR	       INT	          	          
+       VAR	       INT	          	         9
+       VAR	       INT	          	          
+       VAR	       INT	          	        10
+       VAR	       INT	          	          
+       VAR	       INT	          	        11
+       VAR	       INT	          	          
+       VAR	       INT	          	        12
+       VAR	       INT	          	          
+       VAR	       INT	          	        13
+       VAR	       INT	          	          
+       VAR	       INT	          	        14
+       VAR	       INT	          	          
+       VAR	       INT	          	        15
+       VAR	       INT	          	          
+       VAR	       INT	          	        16
+       VAR	       INT	          	          
+       VAR	       INT	          	        17
+       VAR	       INT	          	          
+       VAR	       INT	          	        18
+       VAR	       INT	          	          
+       VAR	       INT	          	        19
+     EFUNC	testDefine	          	          
+      FUNC	      fibo	          	          
+       JGE	        @0	         0	   label_0
+       NEG	         1	          	        $0
+       RET	        $0	          	          
+       JMP	          	          	   label_7
+label_0:
+       JNE	        @0	         0	   label_2
+       RET	         0	          	          
+       JMP	          	          	   label_7
+label_2:
+       JNE	        @0	         1	   label_4
+       RET	         1	          	          
+       JMP	          	          	   label_7
+label_4:
+       JLE	        @0	       MAX	   label_6
+       NEG	         2	          	        $1
+       RET	        $1	          	          
+       JMP	          	          	   label_7
+label_6:
+       SUB	        @0	         1	        $2
+     PARAV	        $2	          	          
+      CALL	      fibo	          	          
+       MOV	      ~$V0	          	        $3
+       SUB	        @0	         2	        $4
+     PARAV	        $4	          	          
+      CALL	      fibo	          	          
+       MOV	      ~$V0	          	        $5
+       ADD	        $3	        $5	        $6
+       RET	        $6	          	          
+label_7:
+     EFUNC	      fibo	          	          
+      FUNC	    upcase	          	          
+       VAR	      CHAR	          	          
+        JL	        @0	        97	   label_8
+        JG	        @0	       122	   label_9
+       SUB	        @0	        97	        $7
+       ADD	        $7	        65	        $8
+       MOV	        $8	          	        %0
+       RET	        %0	          	          
+       JMP	          	          	  label_10
+label_9:
+       RET	        @0	          	          
+label_10:
+       JMP	          	          	  label_11
+label_8:
+       RET	        @0	          	          
+label_11:
+     EFUNC	    upcase	          	          
+      FUNC	   lowcase	          	          
+       VAR	      CHAR	          	          
+        JL	        @0	        65	  label_12
+        JG	        @0	        90	  label_13
+       SUB	        @0	        65	        $9
+       ADD	        $9	        97	       $10
+       MOV	       $10	          	        %0
+       RET	        %0	          	          
+       JMP	          	          	  label_14
+label_13:
+       RET	        @0	          	          
+label_14:
+       JMP	          	          	  label_15
+label_12:
+       RET	        @0	          	          
+label_15:
+     EFUNC	   lowcase	          	          
+      FUNC	printspace	          	          
+     WRITE	     _str0	          	          
+     EFUNC	printspace	          	          
+      FUNC	 operation	          	          
+       JNE	        @2	         1	  label_17
+       ADD	        @0	        @1	       $11
+     WRITE	     _str1	       $11	       int
+       ADD	        @0	        @1	       $12
+       RET	       $12	          	          
+       JMP	          	          	  label_16
+label_17:
+       JNE	        @2	         2	  label_18
+       SUB	        @0	        @1	       $13
+     WRITE	     _str2	       $13	       int
+       SUB	        @0	        @1	       $14
+       RET	       $14	          	          
+       JMP	          	          	  label_16
+label_18:
+       JNE	        @2	         3	  label_19
+       MUL	        @0	        @1	       $15
+     WRITE	     _str3	       $15	       int
+       MUL	        @0	        @1	       $16
+       RET	       $16	          	          
+       JMP	          	          	  label_16
+label_19:
+       JNE	        @2	         4	  label_20
+        JE	        @1	         0	  label_21
+      DIVV	        @0	        @1	       $17
+     WRITE	     _str4	       $17	       int
+      DIVV	        @0	        @1	       $18
+       RET	       $18	          	          
+       JMP	          	          	  label_22
+label_21:
+     WRITE	     _str5	          	          
+       RET	         0	          	          
+label_22:
+       JMP	          	          	  label_16
+label_20:
+     WRITE	     _str6	          	          
+       NEG	         1	          	       $19
+       RET	       $19	          	          
+label_16:
+     EFUNC	 operation	          	          
+      FUNC	   display	          	          
+       VAR	       INT	          	          
+       VAR	      CHAR	          	          
+        JG	        @0	         0	  label_23
+       RET	          	          	          
+       JMP	          	          	  label_26
+label_23:
+       JLE	        @0	        26	  label_25
+       MOV	        26	          	        @0
+       JMP	          	          	  label_26
+label_25:
+       MOV	         0	          	        %0
+       MOV	         A	          	        %1
+label_27:
+       JGE	        %0	        @0	  label_28
+     PARAV	        %1	          	          
+      CALL	    upcase	          	          
+       MOV	      ~$V0	          	       $20
+       MOV	       $20	          	alphabet[%0]
+     PARAV	        %1	          	          
+      CALL	    upcase	          	          
+       MOV	      ~$V0	          	       $21
+       MOV	       $21	          	alphabet[%0]
+       MOV	alphabet[%0]	          	       $22
+     WRITE	          	       $22	          
+       ADD	        %0	         1	       $23
+       MOV	       $23	          	        %0
+       ADD	        %1	         1	       $24
+       MOV	       $24	          	        %1
+       JMP	          	          	  label_27
+label_28:
+      CALL	printspace	          	          
+       MOV	         0	          	        %0
+label_29:
+       JGE	        %0	        @0	  label_30
+       MOV	alphabet[%0]	          	       $25
+     PARAV	       $25	          	          
+      CALL	   lowcase	          	          
+       MOV	      ~$V0	          	       $26
+       MOV	       $26	          	alphabet[%0]
+       MOV	alphabet[%0]	          	       $27
+     WRITE	          	       $27	          
+       ADD	        %0	         1	       $28
+       MOV	       $28	          	        %0
+       JMP	          	          	  label_29
+label_30:
+      CALL	printspace	          	          
+label_26:
+     EFUNC	   display	          	          
+      FUNC	     expre	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+      READ	       int	          	        %0
+      READ	       int	          	        %1
+       ADD	        %0	        %1	       $29
+       NEG	         2	          	       $30
+       MUL	        %1	       $30	       $31
+       NEG	       $31	          	       $32
+       SUB	       $29	       $32	       $33
+       MUL	         2	         0	       $34
+       NEG	       $34	          	       $35
+       ADD	       $33	       $35	       $36
+       MOV	       $36	          	        %2
+     WRITE	     _str7	        %2	       int
+      CALL	printspace	          	          
+     EFUNC	     expre	          	          
+      FUNC	       mod	          	          
+       VAR	       INT	          	          
+      DIVV	        @0	        @1	       $37
+       MUL	       $37	        @1	       $38
+       SUB	        @0	       $38	       $39
+       MOV	       $39	          	        %0
+       RET	        %0	          	          
+     EFUNC	       mod	          	          
+      FUNC	       gcd	          	          
+       JNE	        @1	         0	  label_31
+       RET	         0	          	          
+       JMP	          	          	  label_34
+label_31:
+     PARAV	        @0	          	          
+     PARAV	        @1	          	          
+      CALL	       mod	          	          
+       MOV	      ~$V0	          	       $40
+       JNE	       $40	         0	  label_33
+       RET	        @1	          	          
+       JMP	          	          	  label_34
+label_33:
+     PARAV	        @0	          	          
+     PARAV	        @1	          	          
+      CALL	       mod	          	          
+       MOV	      ~$V0	          	       $41
+     PARAV	        @1	          	          
+     PARAV	       $41	          	          
+      CALL	       gcd	          	          
+       MOV	      ~$V0	          	       $42
+       RET	       $42	          	          
+label_34:
+     EFUNC	       gcd	          	          
+      FUNC	  optimize	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       MOV	         0	          	        %0
+       MOV	         1	          	        %3
+       MOV	         1	          	        %2
+label_35:
+       JGE	        %0	     10000	  label_36
+       ADD	        %0	         1	       $43
+       MOV	       $43	          	        %0
+       NEG	        %3	          	       $44
+       MOV	       $44	          	        %4
+       MUL	        %2	        %4	       $45
+       MOV	       $45	          	        %5
+       NEG	        %3	          	       $46
+       MOV	       $46	          	        %6
+       MUL	        %2	        %6	       $47
+       MOV	       $47	          	        %3
+       ADD	        %5	        %3	       $48
+       MOV	       $48	          	        %7
+       MOV	        %7	          	        %1
+       JMP	          	          	  label_35
+label_36:
+     WRITE	          	        %1	          
+      CALL	printspace	          	          
+     WRITE	          	        %2	          
+      CALL	printspace	          	          
+     WRITE	          	        %3	          
+      CALL	printspace	          	          
+     WRITE	          	        %4	          
+      CALL	printspace	          	          
+     WRITE	          	        %5	          
+      CALL	printspace	          	          
+     WRITE	          	        %6	          
+      CALL	printspace	          	          
+     WRITE	          	        %7	          
+     EFUNC	  optimize	          	          
+      FUNC	   process	          	          
+       VAR	       INT	          	          
+       VAR	      CHAR	          	          
+      READ	       int	          	        %0
+       ADD	        %0	        97	       $49
+       SUB	       $49	         1	       $50
+       MOV	       $50	          	        %1
+       JNE	        %1	        97	  label_38
+      CALL	     expre	          	          
+       JMP	          	          	  label_37
+label_38:
+       JNE	        %1	        98	  label_39
+      READ	       int	          	         n
+     PARAV	         n	          	          
+      CALL	      fibo	          	          
+       MOV	      ~$V0	          	       $51
+       MOV	       $51	          	       ans
+     WRITE	     _str8	       ans	       int
+      CALL	printspace	          	          
+       JMP	          	          	  label_37
+label_39:
+       JNE	        %1	        99	  label_40
+      READ	       int	          	         x
+      READ	       int	          	         y
+      READ	       int	          	      kind
+     PARAV	         x	          	          
+     PARAV	         y	          	          
+     PARAV	      kind	          	          
+      CALL	 operation	          	          
+       MOV	      ~$V0	          	       $52
+       MOV	       $52	          	       ans
+      CALL	printspace	          	          
+       JMP	          	          	  label_37
+label_40:
+       JNE	        %1	       100	  label_41
+      READ	       int	          	         m
+     PARAV	         m	          	          
+      CALL	   display	          	          
+       JMP	          	          	  label_37
+label_41:
+       JNE	        %1	       101	  label_42
+      READ	       int	          	        _a
+      READ	       int	          	        _b
+     PARAV	        _a	          	          
+     PARAV	        _b	          	          
+      CALL	       gcd	          	          
+       MOV	      ~$V0	          	       $53
+     WRITE	     _str9	       $53	       int
+      CALL	printspace	          	          
+       JMP	          	          	  label_37
+label_42:
+       JNE	        %1	       102	  label_43
+     WRITE	    _str10	          	          
+       JMP	          	          	  label_37
+label_43:
+      CALL	  optimize	          	          
+label_37:
+     EFUNC	   process	          	          
+     MAINF	          	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       MOV	         0	          	        %0
+      CALL	testDefine	          	          
+      READ	       int	          	        %1
+label_44:
+       JGE	        %0	        %1	  label_45
+       ADD	        %0	         1	       $54
+       MOV	       $54	          	        %0
+      CALL	   process	          	          
+       JMP	          	          	  label_44
+label_45:
+       RET	          	          	          
+    EMAINF	          	          	          

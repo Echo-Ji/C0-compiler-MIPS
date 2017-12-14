@@ -29,12 +29,12 @@ int lkupType(char *name) {
 	if (name[0] == '-' || isdigit(name[0])) {
 		return AT_INT;
 	}
-	else if (name[0] == '@') {//函数参数
-		//符号表查找当前函数
-		i = atoi(&name[1]);
-		return functab[fidx + 1 + i].type;
-	}
-	else if (name[0] == '$' || name[0] == '%') {//局部变量
+	//else if (name[0] == '@') {//函数参数
+	//	//符号表查找当前函数
+	//	i = atoi(&name[1]);
+	//	return functab[fidx + 1 + i].type;
+	//}
+	else if (name[0] == '$' || name[0] == '%' || name[0] == '@') {//局部变量
 		for (i = gp; i < vx; i++) {
 			if (!strcmpi(aname, alloctab[i].name)) {
 				return alloctab[i].type;
@@ -165,23 +165,37 @@ void mipsCode() {
 			
 		sp = 0;
 		vx = gp;	//vx不能覆盖全局变量
-
+		
 		//非主函数参数空间预留
 		if (!main_flag) {
-			i = lookup(qtab[qidx].var1);
+			i = lookup(qtab[qidx].var1);//var1为函数名
 			paranum = tab.symtab[i].para;
 			if (paranum) {
-				sp -= 4 * paranum;
+				for (j = 0; j < paranum; j++) {
+					sprintf(tmp, "@%d", j);
+					if (tab.symtab[i + j + 1].type == T_INT) {
+						insertAlloctab(tmp, AT_INT, 1);
+					}
+					else if (tab.symtab[i + j + 1].type == T_CHAR) {
+						insertAlloctab(tmp, AT_CHAR, 1);
+					}
+					else { printf("wrong formal para!\n"); }
+				}
+				//sp -= 4 * paranum;
 				fprintf(mipsOut, "sub\t$sp,$sp,%d\t#formal parameters alloc\n", (4 * paranum));
+				//printf("sp:%d	-4*para:%d", sp, -4 * paranum);
 			}
 		}
 
 		qidx++;
 		//局部const入alloc表
 		if (qtab[qidx].op == CONST) { fprintf(mipsOut, "######\n"); }
+		//局部常、变量数目清零
+		j = 0;
 		while (qtab[qidx].op == CONST) {
 			//常量将地址存入栈中
-			sprintf(tmp, "%%%d", vx - gp);
+			//sprintf(tmp, "%%%d", vx - gp);
+			sprintf(tmp, "%%%d", j++);
 			if (!strcmpi(qtab[qidx].var1, "INT")) {
 				lsp = insertAlloctab(tmp, AT_INT, 1);
 			}
@@ -199,7 +213,8 @@ void mipsCode() {
 		//局部var入alloc表
 		while (qtab[qidx].op == VAR) {
 			//声明只需要移动栈指针，不需要填写值
-			sprintf(tmp, "%%%d", vx - gp);
+			//sprintf(tmp, "%%%d", vx - gp);
+			sprintf(tmp, "%%%d", j++);
 			if (!strcmpi(qtab[qidx].var3, "")) {
 				len = 1;
 			}
@@ -393,13 +408,13 @@ int lkupAddr(char *name) {
 	int i, j;
 	int addr = 0;
 	//若为函数参数
-	if (name[0] == '@') {
-		j = atoi(&name[1]);
-		for (i = 0; i < j; i++) {
-			addr -= 4;//fp向下分配空间
-		}
-		return addr;
-	}
+	//if (name[0] == '@') {
+	//	j = atoi(&name[1]);
+	//	for (i = 0; i < j; i++) {
+	//		addr -= 4;//fp向下分配空间
+	//	}
+	//	return addr;
+	//}
 	for (i = gp; i < vx; i++) {
 		if (!strcmpi(alloctab[i].name, name)) {
 			return alloctab[i].offset;
@@ -538,9 +553,9 @@ void mipsCall() {
 	fprintf(mipsOut, "nop\n");
 
 	//设置当前函数指针
-	for (fidx = 0; fidx < fx; fidx++) {
+	/*for (fidx = 0; fidx < fx; fidx++) {
 		if (!strcmpi(qtab[qidx].var1, functab[fidx].name)) { break; }
-	}
+	}*/
 
 	//恢复现场
 	//restore $ra, $fp, $sp

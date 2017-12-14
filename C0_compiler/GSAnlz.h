@@ -966,6 +966,10 @@ void readsent() {
 					return;
 				}
 				qtvargen(var, 0, 0, 0, loc);
+				/*sytype = qtvargen(var, 0, 0, 0, loc);
+				if (sytype == 2) { strcpy(syts, "char"); }
+				else { strcpy(syts, "int"); }
+				emit(READ, syts, "", var);*/
 				emit(READ, "", "", var);
 			}
 			getsym();
@@ -1009,7 +1013,7 @@ void writesent() {
 	}
 	else {
 		loc = expr(&type);
-		qtvargen(var, type, 0, 0 ,loc);//生成汇编的时候根据名字可以找到类型
+		qtvargen(var, type, 0, 0 ,loc);//生成汇编的时候根据名字可以找到类型--直接将类型存储到四元式中
 		emit(WRITE, "", var, "");
 	}
 

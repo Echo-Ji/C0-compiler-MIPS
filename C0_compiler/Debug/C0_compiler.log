@@ -1,2 +1,10 @@
-﻿  C0_compiler.vcxproj -> E:\Study\VS\C0-compiler-MIPS\Debug\C0_compiler.exe
+﻿  main.cpp
+e:\study\vs\c0-compiler-mips\c0_compiler\gsanlz.h(352): warning C4101: “loc”: 未引用的局部变量
+e:\study\vs\c0-compiler-mips\c0_compiler\gsanlz.h(1114): warning C4101: “tmp”: 未引用的局部变量
+e:\study\vs\c0-compiler-mips\c0_compiler\tomips.h(19): warning C4101: “type”: 未引用的局部变量
+e:\study\vs\c0-compiler-mips\c0_compiler\tomips.h(408): warning C4101: “j”: 未引用的局部变量
+e:\study\vs\c0-compiler-mips\c0_compiler\tomips.h(474): warning C4101: “itype”: 未引用的局部变量
+e:\study\vs\c0-compiler-mips\c0_compiler\tomips.h(474): warning C4101: “ioffset”: 未引用的局部变量
+e:\study\vs\c0-compiler-mips\c0_compiler\main.cpp(8): warning C4101: “j”: 未引用的局部变量
+  C0_compiler.vcxproj -> E:\Study\VS\C0-compiler-MIPS\Debug\C0_compiler.exe
   C0_compiler.vcxproj -> E:\Study\VS\C0-compiler-MIPS\Debug\C0_compiler.pdb (Full PDB)
