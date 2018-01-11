@@ -1,21 +1,9 @@
-     CONST	       INT	       MAX	        10
-     CONST	      CHAR	         A	        97
-     CONST	      CHAR	      plus	        43
-     CONST	      CHAR	     minus	        45
-     CONST	      CHAR	      mult	        42
-     CONST	      CHAR	       div	        47
-       VAR	       INT	         n	          
-       VAR	       INT	         x	          
-       VAR	       INT	         y	          
-       VAR	       INT	      kind	          
-       VAR	       INT	         m	          
-       VAR	       INT	       ans	          
-       VAR	       INT	        _a	          
-       VAR	       INT	        _b	          
-       VAR	      CHAR	        ch	          
-       VAR	      CHAR	  alphabet	        26
-      FUNC	testDefine	          	          
-     CONST	       INT	          	         0
+     CONST	       INT	       two	         1
+       VAR	       INT	selectSortList	        10
+       VAR	       INT	quickSortList	        10
+       VAR	       INT	bucketSortList	        10
+       VAR	       INT	  standard	        10
+      FUNC	  sortInit	          	          
      CONST	       INT	          	         1
      CONST	       INT	          	         2
      CONST	       INT	          	         3
@@ -26,425 +14,671 @@
      CONST	       INT	          	         8
      CONST	       INT	          	         9
      CONST	       INT	          	        10
-     CONST	       INT	          	        11
-     CONST	       INT	          	        12
-     CONST	       INT	          	        13
-     CONST	       INT	          	        14
-     CONST	       INT	          	        15
-     CONST	       INT	          	        16
-     CONST	       INT	          	        17
-     CONST	       INT	          	        18
-     CONST	       INT	          	        19
-     CONST	       INT	          	         0
-     CONST	       INT	          	        -1
-     CONST	       INT	          	        -2
-     CONST	       INT	          	        -3
-     CONST	       INT	          	        -4
-     CONST	       INT	          	        -5
-     CONST	       INT	          	        -6
-     CONST	       INT	          	        -7
-     CONST	       INT	          	        -8
-     CONST	       INT	          	        -9
-     CONST	       INT	          	       -10
-     CONST	       INT	          	       -11
-     CONST	       INT	          	       -12
-     CONST	       INT	          	       -13
-     CONST	       INT	          	       -14
-     CONST	       INT	          	       -15
-     CONST	       INT	          	       -16
-     CONST	       INT	          	       -17
-     CONST	       INT	          	       -18
-     CONST	       INT	          	       -19
-     CONST	       INT	          	         0
-     CONST	       INT	          	         1
-     CONST	       INT	          	         2
-     CONST	       INT	          	         3
-     CONST	       INT	          	         4
-     CONST	       INT	          	         5
-     CONST	       INT	          	         6
-     CONST	       INT	          	         7
-     CONST	       INT	          	         8
-     CONST	       INT	          	         9
-     CONST	       INT	          	        10
-     CONST	       INT	          	        11
-     CONST	       INT	          	        12
-     CONST	       INT	          	        13
-     CONST	       INT	          	        14
-     CONST	       INT	          	        15
-     CONST	       INT	          	        16
-     CONST	       INT	          	        17
-     CONST	       INT	          	        18
-     CONST	       INT	          	        19
-     CONST	      CHAR	          	        48
-     CONST	      CHAR	          	        49
-     CONST	      CHAR	          	        50
-     CONST	      CHAR	          	        51
-     CONST	      CHAR	          	        52
-     CONST	      CHAR	          	        53
-     CONST	      CHAR	          	        54
-     CONST	      CHAR	          	        55
-     CONST	      CHAR	          	        56
-     CONST	      CHAR	          	        57
+       VAR	       INT	          	          
+        $0=	        %9	       MUL	        %1
+        $1=	        $0	      DIVV	        %4
+        $2=	        $1	       ADD	         6
+        $3=	        %5	       MUL	        %6
+        $4=	         0	      DIVV	        $3
+        $5=	        $2	       SUB	        $4
+standard[0]=	        $5
+standard[1]=	        %0
+standard[2]=	        %5
+standard[3]=	        %2
+standard[4]=	        %7
+standard[5]=	        %4
+standard[6]=	        %1
+standard[7]=	        %3
+standard[8]=	        %8
+standard[9]=	        %6
+       %10=	         0
+label_0:       JGE	       %10	        10	   label_1
+        $6=	standard[%10]
+selectSortList[%10]=	        $6
+        $7=	standard[%10]
+quickSortList[%10]=	        $7
+        $8=	standard[%10]
+bucketSortList[%10]=	        $8
+        $9=	       %10	       ADD	        %0
+       %10=	        $9
+       JMP	          	          	   label_0
+label_1:     EFUNC	  sortInit	          	          
+      FUNC	selectSort	          	          
        VAR	       INT	          	          
        VAR	       INT	          	          
-       VAR	       INT	          	         1
        VAR	       INT	          	          
-       VAR	       INT	          	         2
+        %0=	         0
+label_2:       JGE	        %0	        10	   label_3
+        %1=	        %0
+        %2=	        %0
+label_4:       JGE	        %1	        10	   label_5
+       $10=	selectSortList[%1]
+       $11=	selectSortList[%2]
+       JGE	       $10	       $11	   label_6
+        %2=	        %1
+       JMP	          	          	   label_6
+label_6:       $12=	        %1	       ADD	         1
+        %1=	       $12
+       JMP	          	          	   label_4
+label_5:       JGE	        %0	        %2	   label_8
+       $13=	selectSortList[%0]
+        %1=	       $13
+       $14=	selectSortList[%2]
+selectSortList[%0]=	       $14
+selectSortList[%2]=	        %1
+       JMP	          	          	   label_8
+label_8:       $15=	        %0	       ADD	         1
+        %0=	       $15
+       JMP	          	          	   label_2
+label_3:     EFUNC	selectSort	          	          
+      FUNC	 quickSort	          	          
        VAR	       INT	          	          
-       VAR	       INT	          	         3
        VAR	       INT	          	          
-       VAR	       INT	          	         4
        VAR	       INT	          	          
-       VAR	       INT	          	         5
        VAR	       INT	          	          
-       VAR	       INT	          	         6
-       VAR	       INT	          	          
-       VAR	       INT	          	         7
-       VAR	       INT	          	          
-       VAR	       INT	          	         8
-       VAR	       INT	          	          
-       VAR	       INT	          	         9
-       VAR	       INT	          	          
-       VAR	       INT	          	        10
-       VAR	       INT	          	          
-       VAR	       INT	          	        11
-       VAR	       INT	          	          
-       VAR	       INT	          	        12
-       VAR	       INT	          	          
-       VAR	       INT	          	        13
-       VAR	       INT	          	          
-       VAR	       INT	          	        14
-       VAR	       INT	          	          
-       VAR	       INT	          	        15
-       VAR	       INT	          	          
-       VAR	       INT	          	        16
-       VAR	       INT	          	          
-       VAR	       INT	          	        17
-       VAR	       INT	          	          
-       VAR	       INT	          	        18
-       VAR	       INT	          	          
-       VAR	       INT	          	        19
-     EFUNC	testDefine	          	          
-      FUNC	      fibo	          	          
-       JGE	        @0	         0	   label_0
-       NEG	         1	          	        $0
-       RET	        $0	          	          
-       JMP	          	          	   label_7
-label_0:
-       JNE	        @0	         0	   label_2
-       RET	         0	          	          
-       JMP	          	          	   label_7
-label_2:
-       JNE	        @0	         1	   label_4
-       RET	         1	          	          
-       JMP	          	          	   label_7
-label_4:
-       JLE	        @0	       MAX	   label_6
-       NEG	         2	          	        $1
-       RET	        $1	          	          
-       JMP	          	          	   label_7
-label_6:
-       SUB	        @0	         1	        $2
-     PARAV	        $2	          	          
-      CALL	      fibo	          	          
-       MOV	      ~$V0	          	        $3
-       SUB	        @0	         2	        $4
-     PARAV	        $4	          	          
-      CALL	      fibo	          	          
-       MOV	      ~$V0	          	        $5
-       ADD	        $3	        $5	        $6
-       RET	        $6	          	          
-label_7:
-     EFUNC	      fibo	          	          
-      FUNC	    upcase	          	          
-       VAR	      CHAR	          	          
-        JL	        @0	        97	   label_8
-        JG	        @0	       122	   label_9
-       SUB	        @0	        97	        $7
-       ADD	        $7	        65	        $8
-       MOV	        $8	          	        %0
-       RET	        %0	          	          
-       JMP	          	          	  label_10
-label_9:
-       RET	        @0	          	          
-label_10:
-       JMP	          	          	  label_11
-label_8:
-       RET	        @0	          	          
-label_11:
-     EFUNC	    upcase	          	          
-      FUNC	   lowcase	          	          
-       VAR	      CHAR	          	          
-        JL	        @0	        65	  label_12
-        JG	        @0	        90	  label_13
-       SUB	        @0	        65	        $9
-       ADD	        $9	        97	       $10
-       MOV	       $10	          	        %0
-       RET	        %0	          	          
-       JMP	          	          	  label_14
-label_13:
-       RET	        @0	          	          
-label_14:
-       JMP	          	          	  label_15
-label_12:
-       RET	        @0	          	          
-label_15:
-     EFUNC	   lowcase	          	          
-      FUNC	printspace	          	          
-     WRITE	     _str0	          	          
-     EFUNC	printspace	          	          
-      FUNC	 operation	          	          
-       JNE	        @2	         1	  label_17
-       ADD	        @0	        @1	       $11
-     WRITE	     _str1	       $11	       int
-       ADD	        @0	        @1	       $12
-       RET	       $12	          	          
+        %0=	        @0
+        %1=	        @1
+       $16=	        %0	       ADD	        %1
+       $17=	       $16	      DIVV	         2
+       $18=	quickSortList[$17]
+        %3=	       $18
+label_10:       JGE	        %0	        %1	  label_11
+label_12:       $19=	quickSortList[%0]
+       JGE	       $19	        %3	  label_13
+       $20=	        %0	       ADD	         1
+        %0=	       $20
+       JMP	          	          	  label_12
+label_13:       $21=	quickSortList[%1]
+       JLE	       $21	        %3	  label_15
+       $22=	        %1	       SUB	         1
+        %1=	       $22
+       JMP	          	          	  label_13
+label_15:        JG	        %0	        %1	  label_16
+       $23=	quickSortList[%0]
+        %2=	       $23
+       $24=	quickSortList[%1]
+quickSortList[%0]=	       $24
+quickSortList[%1]=	        %2
+       $25=	        %0	       ADD	         1
+        %0=	       $25
+       $26=	        %1	       SUB	         1
+        %1=	       $26
        JMP	          	          	  label_16
-label_17:
-       JNE	        @2	         2	  label_18
-       SUB	        @0	        @1	       $13
-     WRITE	     _str2	       $13	       int
-       SUB	        @0	        @1	       $14
-       RET	       $14	          	          
-       JMP	          	          	  label_16
-label_18:
-       JNE	        @2	         3	  label_19
-       MUL	        @0	        @1	       $15
-     WRITE	     _str3	       $15	       int
-       MUL	        @0	        @1	       $16
-       RET	       $16	          	          
-       JMP	          	          	  label_16
-label_19:
-       JNE	        @2	         4	  label_20
-        JE	        @1	         0	  label_21
-      DIVV	        @0	        @1	       $17
-     WRITE	     _str4	       $17	       int
-      DIVV	        @0	        @1	       $18
-       RET	       $18	          	          
+label_16:       JMP	          	          	  label_10
+label_11:       JGE	        @0	        %1	  label_18
+     PARAV	        @0	          	          
+     PARAV	        %1	          	          
+      CALL	 quickSort	          	          
+       JMP	          	          	  label_18
+label_18:       JGE	        %0	        @1	  label_20
+     PARAV	        %0	          	          
+     PARAV	        @1	          	          
+      CALL	 quickSort	          	          
+       JMP	          	          	  label_20
+label_20:     EFUNC	 quickSort	          	          
+      FUNC	bucketSort	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	        20
+        %1=	         0
+        %0=	         0
+label_22:       JGE	        %0	        20	  label_23
+    %2[%0]=	         0
+       $27=	        %0	       ADD	         1
+        %0=	       $27
        JMP	          	          	  label_22
-label_21:
-     WRITE	     _str5	          	          
-       RET	         0	          	          
-label_22:
-       JMP	          	          	  label_16
-label_20:
-     WRITE	     _str6	          	          
-       NEG	         1	          	       $19
-       RET	       $19	          	          
-label_16:
-     EFUNC	 operation	          	          
-      FUNC	   display	          	          
-       VAR	       INT	          	          
-       VAR	      CHAR	          	          
-        JG	        @0	         0	  label_23
-       RET	          	          	          
+label_23:        %0=	         0
+label_24:       JGE	        %0	        10	  label_25
+label_26:       $28=	bucketSortList[%0]
+        JG	        %1	       $28	  label_27
+    %2[%1]=	         0
+       $29=	        %1	       ADD	         1
+        %1=	       $29
        JMP	          	          	  label_26
-label_23:
-       JLE	        @0	        26	  label_25
-       MOV	        26	          	        @0
-       JMP	          	          	  label_26
-label_25:
-       MOV	         0	          	        %0
-       MOV	         A	          	        %1
-label_27:
-       JGE	        %0	        @0	  label_28
-     PARAV	        %1	          	          
-      CALL	    upcase	          	          
-       MOV	      ~$V0	          	       $20
-       MOV	       $20	          	alphabet[%0]
-     PARAV	        %1	          	          
-      CALL	    upcase	          	          
-       MOV	      ~$V0	          	       $21
-       MOV	       $21	          	alphabet[%0]
-       MOV	alphabet[%0]	          	       $22
-     WRITE	          	       $22	          
-       ADD	        %0	         1	       $23
-       MOV	       $23	          	        %0
-       ADD	        %1	         1	       $24
-       MOV	       $24	          	        %1
-       JMP	          	          	  label_27
-label_28:
-      CALL	printspace	          	          
-       MOV	         0	          	        %0
-label_29:
-       JGE	        %0	        @0	  label_30
-       MOV	alphabet[%0]	          	       $25
-     PARAV	       $25	          	          
-      CALL	   lowcase	          	          
-       MOV	      ~$V0	          	       $26
-       MOV	       $26	          	alphabet[%0]
-       MOV	alphabet[%0]	          	       $27
-     WRITE	          	       $27	          
-       ADD	        %0	         1	       $28
-       MOV	       $28	          	        %0
-       JMP	          	          	  label_29
-label_30:
-      CALL	printspace	          	          
-label_26:
-     EFUNC	   display	          	          
-      FUNC	     expre	          	          
+label_27:       $30=	bucketSortList[%0]
+       $31=	bucketSortList[%0]
+       $32=	   %2[$31]
+       $33=	       $32	       ADD	         1
+   %2[$30]=	       $33
+       $34=	        %0	       ADD	         1
+        %0=	       $34
+       JMP	          	          	  label_24
+label_25:       JLE	        %1	         0	  label_29
+       $35=	        %1	       SUB	         1
+        %1=	       $35
+label_30:       $36=	    %2[%1]
+       JLE	       $36	         0	  label_31
+       $37=	    %2[%1]
+       $38=	       $37	       SUB	         1
+    %2[%1]=	       $38
+       $39=	        %0	       SUB	         1
+        %0=	       $39
+bucketSortList[%0]=	        %1
+       JMP	          	          	  label_30
+label_31:       JMP	          	          	  label_25
+label_29:     EFUNC	bucketSort	          	          
+      FUNC	sortResultJudge	          	          
        VAR	       INT	          	          
-       VAR	       INT	          	          
-       VAR	       INT	          	          
-      READ	       int	          	        %0
-      READ	       int	          	        %1
-       ADD	        %0	        %1	       $29
-       NEG	         2	          	       $30
-       MUL	        %1	       $30	       $31
-       NEG	       $31	          	       $32
-       SUB	       $29	       $32	       $33
-       MUL	         2	         0	       $34
-       NEG	       $34	          	       $35
-       ADD	       $33	       $35	       $36
-       MOV	       $36	          	        %2
-     WRITE	     _str7	        %2	       int
-      CALL	printspace	          	          
-     EFUNC	     expre	          	          
-      FUNC	       mod	          	          
-       VAR	       INT	          	          
-      DIVV	        @0	        @1	       $37
-       MUL	       $37	        @1	       $38
-       SUB	        @0	       $38	       $39
-       MOV	       $39	          	        %0
-       RET	        %0	          	          
-     EFUNC	       mod	          	          
-      FUNC	       gcd	          	          
-       JNE	        @1	         0	  label_31
-       RET	         0	          	          
+        %0=	         0
+label_32:       JGE	        %0	        10	  label_33
+       $40=	selectSortList[%0]
+       $41=	        %0	       ADD	       two
+        JE	       $40	       $41	  label_34
+       RET	         1	          	          
        JMP	          	          	  label_34
-label_31:
-     PARAV	        @0	          	          
+label_34:       $42=	quickSortList[%0]
+       $43=	        %0	       ADD	       two
+        JE	       $42	       $43	  label_36
+       RET	         2	          	          
+       JMP	          	          	  label_36
+label_36:       $44=	bucketSortList[%0]
+       $45=	        %0	       ADD	       two
+        JE	       $44	       $45	  label_38
+       RET	         3	          	          
+       JMP	          	          	  label_38
+label_38:       $46=	        %0	       ADD	         1
+        %0=	       $46
+       JMP	          	          	  label_32
+label_33:       RET	         0	          	          
+     EFUNC	sortResultJudge	          	          
+      FUNC	 sortCheck	          	          
+       VAR	       INT	          	          
+      CALL	  sortInit	          	          
+      CALL	selectSort	          	          
+     PARAV	         0	          	          
+     PARAV	         9	          	          
+      CALL	 quickSort	          	          
+      CALL	bucketSort	          	          
+      CALL	sortResultJudge	          	          
+       $47=	      ~$V0
+        %0=	       $47
+       JNE	        %0	         0	  label_41
+     WRITE	     _str0	          	          
+       JMP	          	          	  label_40
+label_41:       JNE	        %0	         1	  label_42
+     WRITE	     _str1	          	          
+       JMP	          	          	  label_40
+label_42:       JNE	        %0	         2	  label_43
+     WRITE	     _str2	          	          
+       JMP	          	          	  label_40
+label_43:       JNE	        %0	         3	  label_40
+     WRITE	     _str3	          	          
+label_40:     EFUNC	 sortCheck	          	          
+      FUNC	Combinatorial	          	          
+       JNE	        @0	        @1	  label_45
+       RET	         1	          	          
+       JMP	          	          	  label_48
+label_45:       JNE	        @1	         0	  label_47
+       RET	         1	          	          
+       JMP	          	          	  label_48
+label_47:       $48=	        @0	       SUB	         1
+     PARAV	       $48	          	          
      PARAV	        @1	          	          
-      CALL	       mod	          	          
-       MOV	      ~$V0	          	       $40
-       JNE	       $40	         0	  label_33
-       RET	        @1	          	          
-       JMP	          	          	  label_34
-label_33:
-     PARAV	        @0	          	          
-     PARAV	        @1	          	          
-      CALL	       mod	          	          
-       MOV	      ~$V0	          	       $41
-     PARAV	        @1	          	          
-     PARAV	       $41	          	          
-      CALL	       gcd	          	          
-       MOV	      ~$V0	          	       $42
-       RET	       $42	          	          
-label_34:
-     EFUNC	       gcd	          	          
-      FUNC	  optimize	          	          
+      CALL	Combinatorial	          	          
+       $49=	      ~$V0
+       $50=	        @0	       SUB	         1
+       $51=	        @1	       SUB	         1
+     PARAV	       $50	          	          
+     PARAV	       $51	          	          
+      CALL	Combinatorial	          	          
+       $52=	      ~$V0
+       $53=	       $49	       ADD	       $52
+       $54=	       two	       MUL	         2
+       $55=	        99	       SUB	        97
+       $56=	       $54	      DIVV	       $55
+       $57=	       $53	       ADD	       $56
+       $58=	       $57	       SUB	         1
+       RET	       $58	          	          
+label_48:     EFUNC	Combinatorial	          	          
+      FUNC	combinaCheck	          	          
        VAR	       INT	          	          
        VAR	       INT	          	          
        VAR	       INT	          	          
-       VAR	       INT	          	          
-       VAR	       INT	          	          
-       VAR	       INT	          	          
-       VAR	       INT	          	          
-       VAR	       INT	          	          
-       MOV	         0	          	        %0
-       MOV	         1	          	        %3
-       MOV	         1	          	        %2
-label_35:
-       JGE	        %0	     10000	  label_36
-       ADD	        %0	         1	       $43
-       MOV	       $43	          	        %0
-       NEG	        %3	          	       $44
-       MOV	       $44	          	        %4
-       MUL	        %2	        %4	       $45
-       MOV	       $45	          	        %5
-       NEG	        %3	          	       $46
-       MOV	       $46	          	        %6
-       MUL	        %2	        %6	       $47
-       MOV	       $47	          	        %3
-       ADD	        %5	        %3	       $48
-       MOV	       $48	          	        %7
-       MOV	        %7	          	        %1
-       JMP	          	          	  label_35
-label_36:
-     WRITE	          	        %1	          
-      CALL	printspace	          	          
+      READ	          	          	        %0
+      READ	          	          	        %1
+     PARAV	        %0	          	          
+     PARAV	        %1	          	          
+      CALL	Combinatorial	          	          
+       $59=	      ~$V0
+        %2=	       $59
      WRITE	          	        %2	          
-      CALL	printspace	          	          
-     WRITE	          	        %3	          
-      CALL	printspace	          	          
-     WRITE	          	        %4	          
-      CALL	printspace	          	          
-     WRITE	          	        %5	          
-      CALL	printspace	          	          
-     WRITE	          	        %6	          
-      CALL	printspace	          	          
-     WRITE	          	        %7	          
-     EFUNC	  optimize	          	          
-      FUNC	   process	          	          
+     EFUNC	combinaCheck	          	          
+      FUNC	nextLetter	          	          
+     CONST	      CHAR	          	        97
+     CONST	      CHAR	          	        98
+     CONST	      CHAR	          	        99
+     CONST	      CHAR	          	       100
+     CONST	      CHAR	          	       101
+     CONST	      CHAR	          	       102
+     CONST	      CHAR	          	       103
+     CONST	      CHAR	          	       104
+     CONST	      CHAR	          	       105
+     CONST	      CHAR	          	       106
+     CONST	      CHAR	          	       107
+     CONST	      CHAR	          	       108
+     CONST	      CHAR	          	       109
+     CONST	      CHAR	          	       110
+     CONST	      CHAR	          	       111
+     CONST	      CHAR	          	       112
+     CONST	      CHAR	          	       113
+     CONST	      CHAR	          	       114
+     CONST	      CHAR	          	       115
+     CONST	      CHAR	          	       116
+     CONST	      CHAR	          	       117
+     CONST	      CHAR	          	       118
+     CONST	      CHAR	          	       119
+     CONST	      CHAR	          	       120
+     CONST	      CHAR	          	       121
+     CONST	      CHAR	          	       122
+       VAR	      CHAR	          	        26
+       VAR	       INT	          	          
+    %26[0]=	        %0
+    %26[1]=	        %1
+    %26[2]=	        %2
+    %26[3]=	        %3
+    %26[4]=	        %4
+    %26[5]=	        %5
+    %26[6]=	        %6
+    %26[7]=	        %7
+    %26[8]=	        %8
+    %26[9]=	        %9
+   %26[10]=	       %10
+   %26[11]=	       %11
+   %26[12]=	       %12
+   %26[13]=	       %13
+   %26[14]=	       %14
+   %26[15]=	       %15
+   %26[16]=	       %16
+   %26[17]=	       %17
+   %26[18]=	       %18
+   %26[19]=	       %19
+   %26[20]=	       %20
+   %26[21]=	       %21
+   %26[22]=	       %22
+   %26[23]=	       %23
+   %26[24]=	       %24
+   %26[25]=	       %25
+        JL	        @0	        97	  label_49
+        JG	        @0	       122	  label_50
+       $60=	        @0	       SUB	        97
+       $61=	       $60	       ADD	         1
+       %27=	       $61
+       JLE	       %27	        25	  label_51
+       %27=	         0
+       JMP	          	          	  label_51
+label_51:     WRITE	     _str4	          	          
+       $62=	  %26[%27]
+     WRITE	          	       $62	          
+       JMP	          	          	  label_53
+label_50:     WRITE	     _str5	          	          
+     WRITE	          	        @0	          
+label_53:       JMP	          	          	  label_60
+label_49:        JL	        @0	        65	  label_55
+        JG	        @0	        90	  label_56
+       $63=	        @0	       SUB	        65
+       $64=	       $63	       ADD	         1
+       %27=	       $64
+       JLE	       %27	        25	  label_57
+       %27=	         0
+       JMP	          	          	  label_57
+label_57:     WRITE	     _str4	          	          
+       $65=	  %26[%27]
+     WRITE	          	       $65	          
+       JMP	          	          	  label_59
+label_56:     WRITE	     _str5	          	          
+     WRITE	          	        @0	          
+label_59:       JMP	          	          	  label_60
+label_55:     WRITE	     _str5	          	          
+     WRITE	          	        @0	          
+label_60:     EFUNC	nextLetter	          	          
+      FUNC	letterCheck	          	          
        VAR	       INT	          	          
        VAR	      CHAR	          	          
-      READ	       int	          	        %0
-       ADD	        %0	        97	       $49
-       SUB	       $49	         1	       $50
-       MOV	       $50	          	        %1
-       JNE	        %1	        97	  label_38
-      CALL	     expre	          	          
-       JMP	          	          	  label_37
-label_38:
-       JNE	        %1	        98	  label_39
-      READ	       int	          	         n
-     PARAV	         n	          	          
-      CALL	      fibo	          	          
-       MOV	      ~$V0	          	       $51
-       MOV	       $51	          	       ans
-     WRITE	     _str8	       ans	       int
-      CALL	printspace	          	          
-       JMP	          	          	  label_37
-label_39:
-       JNE	        %1	        99	  label_40
-      READ	       int	          	         x
-      READ	       int	          	         y
-      READ	       int	          	      kind
-     PARAV	         x	          	          
-     PARAV	         y	          	          
-     PARAV	      kind	          	          
-      CALL	 operation	          	          
-       MOV	      ~$V0	          	       $52
-       MOV	       $52	          	       ans
-      CALL	printspace	          	          
-       JMP	          	          	  label_37
-label_40:
-       JNE	        %1	       100	  label_41
-      READ	       int	          	         m
-     PARAV	         m	          	          
-      CALL	   display	          	          
-       JMP	          	          	  label_37
-label_41:
-       JNE	        %1	       101	  label_42
-      READ	       int	          	        _a
-      READ	       int	          	        _b
-     PARAV	        _a	          	          
-     PARAV	        _b	          	          
-      CALL	       gcd	          	          
-       MOV	      ~$V0	          	       $53
-     WRITE	     _str9	       $53	       int
-      CALL	printspace	          	          
-       JMP	          	          	  label_37
-label_42:
-       JNE	        %1	       102	  label_43
-     WRITE	    _str10	          	          
-       JMP	          	          	  label_37
-label_43:
-      CALL	  optimize	          	          
-label_37:
-     EFUNC	   process	          	          
+      READ	          	          	        %0
+label_61:       JLE	        %0	         0	  label_62
+      READ	          	          	        %1
+     PARAV	        %1	          	          
+      CALL	nextLetter	          	          
+       $66=	        %0	       SUB	         1
+        %0=	       $66
+       JMP	          	          	  label_61
+label_62:     EFUNC	letterCheck	          	          
      MAINF	          	          	          
+       VAR	      CHAR	          	          
+      READ	          	          	        %0
+       JNE	        %0	       115	  label_64
+      CALL	 sortCheck	          	          
+       JMP	          	          	  label_63
+label_64:       JNE	        %0	        99	  label_65
+      CALL	combinaCheck	          	          
+       JMP	          	          	  label_63
+label_65:       JNE	        %0	       110	  label_66
+      CALL	letterCheck	          	          
+       JMP	          	          	  label_63
+label_66:     WRITE	     _str6	          	          
+label_63:    EMAINF	          	          	          
+AFTER OPTIMIZED:
+     CONST	       INT	       two	         1
+       VAR	       INT	selectSortList	        10
+       VAR	       INT	quickSortList	        10
+       VAR	       INT	bucketSortList	        10
+       VAR	       INT	  standard	        10
+      FUNC	  sortInit	          	          
+     CONST	       INT	          	         1
+     CONST	       INT	          	         2
+     CONST	       INT	          	         3
+     CONST	       INT	          	         4
+     CONST	       INT	          	         5
+     CONST	       INT	          	         6
+     CONST	       INT	          	         7
+     CONST	       INT	          	         8
+     CONST	       INT	          	         9
+     CONST	       INT	          	        10
+       VAR	       INT	          	          
+       %10=	         0
+        $0=	        %9	       MUL	        %1
+        $1=	        $0	      DIVV	        %4
+        $2=	        $1	       ADD	         6
+        $3=	        %5	       MUL	        %6
+        $4=	         0	      DIVV	        $3
+standard[0]=	        $2	       SUB	        $4
+standard[1]=	        %0
+standard[2]=	        %5
+standard[3]=	        %2
+standard[4]=	        %7
+standard[5]=	        %4
+standard[6]=	        %1
+standard[7]=	        %3
+standard[8]=	        %8
+standard[9]=	        %6
+label_0:       JGE	       %10	        10	   label_1
+        $8=	standard[%10]
+selectSortList[%10]=	        $8
+quickSortList[%10]=	        $8
+bucketSortList[%10]=	        $8
+       %10=	       %10	       ADD	        %0
+       JMP	          	          	   label_0
+label_1:     EFUNC	  sortInit	          	          
+      FUNC	selectSort	          	          
        VAR	       INT	          	          
        VAR	       INT	          	          
-       MOV	         0	          	        %0
-      CALL	testDefine	          	          
-      READ	       int	          	        %1
-label_44:
-       JGE	        %0	        %1	  label_45
-       ADD	        %0	         1	       $54
-       MOV	       $54	          	        %0
-      CALL	   process	          	          
-       JMP	          	          	  label_44
-label_45:
-       RET	          	          	          
-    EMAINF	          	          	          
+       VAR	       INT	          	          
+        %0=	         0
+label_2:       JGE	        %0	        10	   label_3
+        %1=	        %0
+        %2=	        %0
+label_4:       JGE	        %1	        10	   label_5
+       $10=	selectSortList[%1]
+       $11=	selectSortList[%2]
+       JGE	       $10	       $11	   label_6
+        %2=	        %1
+label_6:        %1=	        %1	       ADD	         1
+       JMP	          	          	   label_4
+label_5:       JGE	        %0	        %2	   label_8
+        %1=	selectSortList[%0]
+       $14=	selectSortList[%2]
+selectSortList[%0]=	       $14
+selectSortList[%2]=	        %1
+label_8:        %0=	        %0	       ADD	         1
+       JMP	          	          	   label_2
+label_3:     EFUNC	selectSort	          	          
+      FUNC	 quickSort	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+        %0=	        @0
+        %1=	        @1
+       $16=	        @0	       ADD	        @1
+       $17=	       $16	      DIVV	         2
+        %3=	quickSortList[$17]
+label_10:       JGE	        %0	        %1	  label_11
+label_12:       $19=	quickSortList[%0]
+       JGE	       $19	        %3	  label_13
+        %0=	        %0	       ADD	         1
+       JMP	          	          	  label_12
+label_13:       $21=	quickSortList[%1]
+       JLE	       $21	        %3	  label_15
+        %1=	        %1	       SUB	         1
+       JMP	          	          	  label_13
+label_15:        JG	        %0	        %1	  label_16
+        %2=	quickSortList[%0]
+       $24=	quickSortList[%1]
+quickSortList[%0]=	       $24
+quickSortList[%1]=	        %2
+        %0=	        %0	       ADD	         1
+        %1=	        %1	       SUB	         1
+label_16:       JMP	          	          	  label_10
+label_11:       JGE	        @0	        %1	  label_18
+     PARAV	        @0	          	          
+     PARAV	        %1	          	          
+      CALL	 quickSort	          	          
+label_18:       JGE	        %0	        @1	  label_20
+     PARAV	        %0	          	          
+     PARAV	        @1	          	          
+      CALL	 quickSort	          	          
+label_20:     EFUNC	 quickSort	          	          
+      FUNC	bucketSort	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	        20
+        %1=	         0
+        %0=	         0
+label_22:       JGE	        %0	        20	  label_23
+    %2[%0]=	         0
+        %0=	        %0	       ADD	         1
+       JMP	          	          	  label_22
+label_23:        %0=	         0
+label_24:       JGE	        %0	        10	  label_25
+label_26:       $28=	bucketSortList[%0]
+        JG	        %1	       $28	  label_27
+    %2[%1]=	         0
+        %1=	        %1	       ADD	         1
+       JMP	          	          	  label_26
+label_27:       $31=	bucketSortList[%0]
+       $32=	   %2[$31]
+   %2[$31]=	       $32	       ADD	         1
+        %0=	        %0	       ADD	         1
+       JMP	          	          	  label_24
+label_25:       JLE	        %1	         0	  label_29
+        %1=	        %1	       SUB	         1
+label_30:       $36=	    %2[%1]
+       JLE	       $36	         0	  label_31
+       $37=	    %2[%1]
+    %2[%1]=	       $37	       SUB	         1
+        %0=	        %0	       SUB	         1
+bucketSortList[%0]=	        %1
+       JMP	          	          	  label_30
+label_31:       JMP	          	          	  label_25
+label_29:     EFUNC	bucketSort	          	          
+      FUNC	sortResultJudge	          	          
+       VAR	       INT	          	          
+        %0=	         0
+label_32:       JGE	        %0	        10	  label_33
+       $40=	selectSortList[%0]
+       $41=	        %0	       ADD	       two
+        JE	       $40	       $41	  label_34
+       RET	         1	          	          
+label_34:       $42=	quickSortList[%0]
+       $43=	        %0	       ADD	       two
+        JE	       $42	       $43	  label_36
+       RET	         2	          	          
+label_36:       $44=	bucketSortList[%0]
+       $45=	        %0	       ADD	       two
+        JE	       $44	       $45	  label_38
+       RET	         3	          	          
+label_38:        %0=	        %0	       ADD	         1
+       JMP	          	          	  label_32
+label_33:       RET	         0	          	          
+     EFUNC	sortResultJudge	          	          
+      FUNC	 sortCheck	          	          
+       VAR	       INT	          	          
+      CALL	  sortInit	          	          
+      CALL	selectSort	          	          
+     PARAV	         0	          	          
+     PARAV	         9	          	          
+      CALL	 quickSort	          	          
+      CALL	bucketSort	          	          
+      CALL	sortResultJudge	          	          
+       $47=	      ~$V0
+        %0=	       $47
+       JNE	        %0	         0	  label_41
+     WRITE	     _str0	          	          
+       JMP	          	          	  label_40
+label_41:       JNE	        %0	         1	  label_42
+     WRITE	     _str1	          	          
+       JMP	          	          	  label_40
+label_42:       JNE	        %0	         2	  label_43
+     WRITE	     _str2	          	          
+       JMP	          	          	  label_40
+label_43:       JNE	        %0	         3	  label_40
+     WRITE	     _str3	          	          
+label_40:     EFUNC	 sortCheck	          	          
+      FUNC	Combinatorial	          	          
+       JNE	        @0	        @1	  label_45
+       RET	         1	          	          
+       JMP	          	          	  label_48
+label_45:       JNE	        @1	         0	  label_47
+       RET	         1	          	          
+       JMP	          	          	  label_48
+label_47:       $48=	        @0	       SUB	         1
+     PARAV	       $48	          	          
+     PARAV	        @1	          	          
+      CALL	Combinatorial	          	          
+       $49=	      ~$V0
+       $50=	        @0	       SUB	         1
+       $51=	        @1	       SUB	         1
+     PARAV	       $50	          	          
+     PARAV	       $51	          	          
+      CALL	Combinatorial	          	          
+       $52=	      ~$V0
+       $53=	       $49	       ADD	       $52
+       $54=	       two	       MUL	         2
+       $55=	        99	       SUB	        97
+       $56=	       $54	      DIVV	       $55
+       $57=	       $53	       ADD	       $56
+       $58=	       $57	       SUB	         1
+       RET	       $58	          	          
+label_48:     EFUNC	Combinatorial	          	          
+      FUNC	combinaCheck	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+       VAR	       INT	          	          
+      READ	          	          	        %0
+      READ	          	          	        %1
+     PARAV	        %0	          	          
+     PARAV	        %1	          	          
+      CALL	Combinatorial	          	          
+       $59=	      ~$V0
+        %2=	       $59
+     WRITE	          	        %2	          
+     EFUNC	combinaCheck	          	          
+      FUNC	nextLetter	          	          
+     CONST	      CHAR	          	        97
+     CONST	      CHAR	          	        98
+     CONST	      CHAR	          	        99
+     CONST	      CHAR	          	       100
+     CONST	      CHAR	          	       101
+     CONST	      CHAR	          	       102
+     CONST	      CHAR	          	       103
+     CONST	      CHAR	          	       104
+     CONST	      CHAR	          	       105
+     CONST	      CHAR	          	       106
+     CONST	      CHAR	          	       107
+     CONST	      CHAR	          	       108
+     CONST	      CHAR	          	       109
+     CONST	      CHAR	          	       110
+     CONST	      CHAR	          	       111
+     CONST	      CHAR	          	       112
+     CONST	      CHAR	          	       113
+     CONST	      CHAR	          	       114
+     CONST	      CHAR	          	       115
+     CONST	      CHAR	          	       116
+     CONST	      CHAR	          	       117
+     CONST	      CHAR	          	       118
+     CONST	      CHAR	          	       119
+     CONST	      CHAR	          	       120
+     CONST	      CHAR	          	       121
+     CONST	      CHAR	          	       122
+       VAR	      CHAR	          	        26
+       VAR	       INT	          	          
+    %26[0]=	        %0
+    %26[1]=	        %1
+    %26[2]=	        %2
+    %26[3]=	        %3
+    %26[4]=	        %4
+    %26[5]=	        %5
+    %26[6]=	        %6
+    %26[7]=	        %7
+    %26[8]=	        %8
+    %26[9]=	        %9
+   %26[10]=	       %10
+   %26[11]=	       %11
+   %26[12]=	       %12
+   %26[13]=	       %13
+   %26[14]=	       %14
+   %26[15]=	       %15
+   %26[16]=	       %16
+   %26[17]=	       %17
+   %26[18]=	       %18
+   %26[19]=	       %19
+   %26[20]=	       %20
+   %26[21]=	       %21
+   %26[22]=	       %22
+   %26[23]=	       %23
+   %26[24]=	       %24
+   %26[25]=	       %25
+        JL	        @0	        97	  label_49
+        JG	        @0	       122	  label_50
+       $60=	        @0	       SUB	        97
+       %27=	       $60	       ADD	         1
+       JLE	       %27	        25	  label_51
+       %27=	         0
+label_51:     WRITE	     _str4	          	          
+       $62=	  %26[%27]
+     WRITE	          	       $62	          
+       JMP	          	          	  label_53
+label_50:     WRITE	     _str5	          	          
+     WRITE	          	        @0	          
+label_53:       JMP	          	          	  label_60
+label_49:        JL	        @0	        65	  label_55
+        JG	        @0	        90	  label_56
+       $63=	        @0	       SUB	        65
+       %27=	       $63	       ADD	         1
+       JLE	       %27	        25	  label_57
+       %27=	         0
+label_57:     WRITE	     _str4	          	          
+       $65=	  %26[%27]
+     WRITE	          	       $65	          
+       JMP	          	          	  label_59
+label_56:     WRITE	     _str5	          	          
+     WRITE	          	        @0	          
+label_59:       JMP	          	          	  label_60
+label_55:     WRITE	     _str5	          	          
+     WRITE	          	        @0	          
+label_60:     EFUNC	nextLetter	          	          
+      FUNC	letterCheck	          	          
+       VAR	       INT	          	          
+       VAR	      CHAR	          	          
+      READ	          	          	        %0
+label_61:       JLE	        %0	         0	  label_62
+      READ	          	          	        %1
+     PARAV	        %1	          	          
+      CALL	nextLetter	          	          
+        %0=	        %0	       SUB	         1
+       JMP	          	          	  label_61
+label_62:     EFUNC	letterCheck	          	          
+     MAINF	          	          	          
+       VAR	      CHAR	          	          
+      READ	          	          	        %0
+       JNE	        %0	       115	  label_64
+      CALL	 sortCheck	          	          
+       JMP	          	          	  label_63
+label_64:       JNE	        %0	        99	  label_65
+      CALL	combinaCheck	          	          
+       JMP	          	          	  label_63
+label_65:       JNE	        %0	       110	  label_66
+      CALL	letterCheck	          	          
+       JMP	          	          	  label_63
+label_66:     WRITE	     _str6	          	          
+label_63:    EMAINF	          	          	          

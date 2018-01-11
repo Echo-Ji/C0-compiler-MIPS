@@ -78,6 +78,7 @@ int insertab(char *name) {//自带查表功能,常量不能重复赋值
 			}
 		}
 		iend = tab.btab[1];
+		if (iend == 0) { iend = tx; }
 		for (iter = 0; iter < iend; iter++) {
 			if (!strcmpi(name, tab.symtab[iter].name)) {
 				error(7);
@@ -120,6 +121,9 @@ int insertab(char *name) {//自带查表功能,常量不能重复赋值
 int insertstr() {
 	if (stx > MAX_STR_ENTRY) {
 		error(28);
+	}
+	for (int i = stx - 1; i >= 0; i--) {
+		if (!strcmp(stab[i], strcon)) return i;
 	}
 	strcpy(stab[stx], strcon);
 	stx++;
@@ -260,14 +264,13 @@ void program() {
 				}
 				else { skip(sentbegsys, 16,9);}
 
-				if (sym != LBRACE) { skip(sentbegsys, 18, 9); }
+				if (sym != LBRACE) { skip(sentlistbegsys, 18, 13); }
 				else { getsym(); }
 				pushfunc(0);
 				compoundsent();
 				popfunc();
 				emit(EMAINF, "", "", "");
-				printf("<主函数>\n");
-				fprintf(out, "<主函数>\n");
+				if (GRAMMER) { fprintf(out, "<主函数>\n"); }
 				if (sym != RBRACE) { error(11); }
 				while (true) {
 					if (end_flag) {
@@ -322,9 +325,11 @@ void program() {
 		}
 	}
 	if (!end_flag || error_flag) {
-		printf("编译失败：错误信息请查看文件err.txt!\n");
+		if (!DEBUG) { printf("编译失败：错误信息请查看文件err.txt!\n"); }
+		else { printf("编译失败！\n"); }
 	}
 	else {
+		labelPro();
 		printf("编译成功！\n");
 	}
 }
@@ -349,7 +354,7 @@ int defhead() {//没有入表操作
 
 //emit-undebug
 void constdef() {
-	int sign = 1, loc;
+	int sign = 1;
 	char tmp[MAX_IDEN];
 	tpara = 0;
 	if (sym == INTTK) {
@@ -466,8 +471,7 @@ void constdef() {
 			}
 		}
 	}
-	printf("<常量定义>\n");
-	fprintf(out, "<常量定义>\n");
+	if (GRAMMER) { fprintf(out, "<常量定义>\n"); }
 }
 
 //emit-undebug
@@ -582,8 +586,7 @@ void vardef() {
 			}
 		}
 	}
-	printf("<变量定义>\n");
-	fprintf(out, "<变量定义>\n");
+	if (GRAMMER) { fprintf(out, "<变量定义>\n"); }
 }
 //emit-undebug
 void procdef() {//从标识符开始
@@ -592,8 +595,7 @@ void procdef() {//从标识符开始
 		getsym();
 		funcdef();
 	}
-	printf("<无返回值函数定义>\n");
-	fprintf(out, "<无返回值函数定义>\n");
+	if (GRAMMER) { fprintf(out, "<无返回值函数定义>\n"); }
 }
 //emit-undebug
 void funcdef () {//从标识符之后开始
@@ -631,8 +633,7 @@ void funcdef () {//从标识符之后开始
 	if (sym != RBRACE){ error(11);}
 	else { getsym(); }
 	if (tab.symtab[tab.btab[btotal]].type != 0) {
-		printf("<有返回值函数定义>\n");
-		fprintf(out, "<有返回值函数定义>\n");
+		if (GRAMMER) {fprintf(out, "<有返回值函数定义>\n");}
 	}
 }
 
@@ -682,8 +683,7 @@ void compoundsent() {
 		}
 	}
 	sentlist();
-	printf("<复合语句>\n");
-	fprintf(out, "<复合语句>\n");
+	if (GRAMMER) {fprintf(out, "<复合语句>\n");}
 }
 
 //＜语句列＞   ::= ｛＜语句＞｝
@@ -691,8 +691,7 @@ void sentlist() {
 	while (isin(sym, sentbegsys, 9) >= 0) {
 		sentence();
 	}
-	printf("<语句列>\n");
-	fprintf(out, "<语句列>\n");
+	if (GRAMMER) { fprintf(out, "<语句列>\n"); }
 }
 
 //＜条件语句＞::= if ‘(’＜条件＞‘)’＜语句＞else＜语句＞
@@ -724,8 +723,9 @@ void ifsent() {
 		sentence();
 		//qtab[qtx].label = label2;
 		setlab(qtx, label2);
-		printf("<条件语句>\n");
-		fprintf(out, "<条件语句>\n");
+		if (GRAMMER) {
+			fprintf(out, "<条件语句>\n");
+		}
 	}
 	else { skip(sentbegsys, 19, 9); }
 }
@@ -788,8 +788,7 @@ void whilesent()
 	//qtab[qtx].label = label2;
 	setlab(qtx, label2);
 
-	printf("<循环语句>\n");
-	fprintf(out, "<循环语句>\n");
+	if (GRAMMER) { fprintf(out, "<循环语句>\n"); }
 }
 
 //＜情况语句＞  ::=  switch ‘(’＜表达式＞‘)’ ‘{’＜情况表＞[＜缺省＞] ‘}’
@@ -815,8 +814,7 @@ void casesent() {
 	
 	if (sym != RBRACE) { skip(sentbegsys,11,9); }
 	else { getsym(); }
-	printf("<情况语句>\n");
-	fprintf(out, "<情况语句>\n");
+	if (GRAMMER) { fprintf(out, "<情况语句>\n"); }
 }
 
 //＜情况表＞   ::=  ＜情况子语句＞{＜情况子语句＞}
@@ -939,7 +937,7 @@ void readsent() {
 	getsym();
 	if (sym != LPARENT) { 
 		error(16); 
-		while (sym != IDEN || sym != RPARENT || sym != SEMICN) { getsym(); }
+		while (sym != IDEN && sym != RPARENT && sym != SEMICN) { getsym(); }
 	}
 	else { getsym(); }
 
@@ -978,8 +976,7 @@ void readsent() {
 
 	if (sym != RPARENT) { skip(sentbegsys,9,9); }
 	else if (sym != SEMICN) { getsym(); }
-	printf("<读语句>\n");
-	fprintf(out, "<读语句>\n");
+	if (GRAMMER) { fprintf(out, "<读语句>\n"); }
 }
 
 //＜写语句＞    ::= printf ‘(’ ＜字符串＞,＜表达式＞ ‘)’| printf ‘(’＜字符串＞ ‘)’| printf ‘(’＜表达式＞‘)’
@@ -990,9 +987,8 @@ void writesent() {
 	getsym();
 	if (sym != LPARENT) {
 		error(16); 
-		while (sym == SEMICN ||sym == RPARENT ||
-			sym == STRCON || sym == IDEN ||
-			sym == PLUS || sym == MINU) {
+		while (sym != STRCON && sym != IDEN &&
+			sym != PLUS && sym != MINU) {
 			getsym();
 		}
 	}
@@ -1000,16 +996,18 @@ void writesent() {
 	if (sym == STRCON) {
 		sidx = insertstr();
 		sprintf(str, "_str%d", sidx);
+		emit(WRITE, str, "", "");	//遇到printf(字符串，表达式)；先打印字符串，再计算表达式，再打印表达式
 		getsym();
 		if (sym == COMMA) {
 			getsym();
 			loc = expr(&type);
 			qtvargen(var, type, 0, 0, loc);
-			emit(WRITE, str, var, "");
+			//emit(WRITE, str, var, "");
+			emit(WRITE, "", var, "");
 		}
-		else {
+		/*else {
 			emit(WRITE, str, "", "");
-		}
+		}*/
 	}
 	else {
 		loc = expr(&type);
@@ -1019,8 +1017,7 @@ void writesent() {
 
 	if (sym != RPARENT) { skip(sentbegsys,9,9); }
 	else if (sym != SEMICN) { getsym(); }
-	printf("<写语句>\n");
-	fprintf(out, "<写语句>\n");
+	if (GRAMMER) { fprintf(out, "<写语句>\n"); }
 }
 
 //＜返回语句＞   ::=  return[‘(’＜表达式＞‘)’]
@@ -1047,8 +1044,7 @@ void returnsent() {
 		if (tab.symtab[tab.btab[btotal]].type) { error(32); }
 		emit(RET, "", "", "");
 	}
-	printf("<返回语句> \n");
-	fprintf(out, "<返回语句> \n");
+	if (GRAMMER) { fprintf(out, "<返回语句> \n"); }
 }
 
 //＜赋值语句＞   ::=  ＜标识符＞＝＜表达式＞|＜标识符＞‘[’＜表达式＞‘]’=＜表达式＞
@@ -1087,11 +1083,12 @@ void assignsent(int loc) {
 		getsym();
 		tloc = expr(&type);
 		type2 = qtvargen(var2, type, 0, 0, tloc);
-		if (type2 > type1) { error(23); }
+		if (type2 < type1) { 
+			error(23); 
+		}
 		else { emit(MOV, var2, "", var1); }
 		
-		printf("<赋值语句>\n");
-		fprintf(out, "<赋值语句>\n");
+		if (GRAMMER) { fprintf(out, "<赋值语句>\n"); }
 	}
 	else {
 		error(27);
@@ -1105,7 +1102,7 @@ void assignsent(int loc) {
 void sentence() {
 	int loc;
 	int flag;
-	char tmp[MAX_IDEN];
+//	char tmp[MAX_IDEN];
 	switch (sym) {
 	case IDEN: {
 		if ((loc = lookup(iden)) < 0) { //若出错则将语句读完
@@ -1113,13 +1110,16 @@ void sentence() {
 				if (sym == IDEN && lookup(iden) < 0) {
 					error(6);
 				}
-				getsym();
+				if (sym == RBRACE) { return; }
+				else { getsym(); }
 			}
 			getsym();
 		}
 		else {
 			getsym();
-			if (tab.symtab[loc].kind == K_FUNC) {
+			if (sym == LPARENT || tab.symtab[loc].kind == K_FUNC) {
+				if (sym == LPARENT) { loc = lkupFunc(iden); }//若为有参函数调用则需要更新loc
+
 				if (tab.symtab[loc].para) {//若为有参函数
 					if (sym != LPARENT) {//函数无左括号,直接读到分号结束
 						skip(sentbegsys, 16, 9);
@@ -1140,12 +1140,10 @@ void sentence() {
 				}
 
 				if (flag) {
-					printf("<有返回值函数调用语句>\n");
-					fprintf(out, "<有返回值函数调用语句>\n");
+					if (GRAMMER) { fprintf(out, "<有返回值函数调用语句>\n"); }
 				}
 				else {
-					printf("<无返回值函数调用语句>\n");
-					fprintf(out, "<无返回值函数调用语句>\n");
+					if (GRAMMER) { fprintf(out, "<无返回值函数调用语句>\n"); }
 				}
 
 				if (sym != SEMICN) { skip(sentbegsys, 12, 9); }
@@ -1209,7 +1207,6 @@ void sentence() {
 }
 
 //＜值参数表＞   ::= ＜表达式＞{,＜表达式＞}
-//未判断是否与形参列表相匹配,loc为函数在符号表中的位置
 void rparalist(int loc) {
 	int rpara, type, i;
 	int fpara = loc + 1;
@@ -1227,7 +1224,7 @@ void rparalist(int loc) {
 	}*/
 	//实参形参类型必须一致，否则报错
 	if ((type > EX_ARRAY && type - 1 == tab.symtab[fpara].type) ||
-		(type <= EX_ARRAY && tab.symtab[rpara].type == tab.symtab[fpara].type))
+		(type <= EX_ARRAY && tab.symtab[rpara].type == tab.symtab[fpara].type && tab.symtab[rpara].kind!=K_ARRAY))
 	{
 		qtvargen(var, type, 0, 0, rpara);
 		strcpy(varst[vtx], var);
@@ -1241,7 +1238,7 @@ void rparalist(int loc) {
 		getsym();
 		if (fpara == tx || tab.symtab[fpara].kind != K_PARA) {//参数传多了
 			error(25);
-			while(sym != RPARENT || sym != SEMICN) {
+			while(sym != RPARENT && sym != SEMICN) {
 				getsym();
 			}
 			return;
@@ -1249,7 +1246,7 @@ void rparalist(int loc) {
 
 		rpara = expr(&type);
 		if ((type > EX_ARRAY && type - 1 == tab.symtab[fpara].type) ||
-			(type <= EX_ARRAY && tab.symtab[rpara].type == tab.symtab[fpara].type))
+			(type <= EX_ARRAY && tab.symtab[rpara].type == tab.symtab[fpara].type && tab.symtab[rpara].kind != K_ARRAY))
 		{
 			qtvargen(var, type, 0, 0, rpara);
 			strcpy(varst[vtx], var);
@@ -1337,18 +1334,18 @@ int expr(int *type) {
 		getsym();
 		loc2 = term(type, &index, &itype);
 		type2 = qtvargen(var2, *type, index, itype, loc2);
-		sytype = (type1 == T_CHAR && type2 == T_CHAR) ? T_CHAR : T_INT;
+		//sytype = (type1 == T_CHAR && type2 == T_CHAR) ? T_CHAR : T_INT;
+		sytype = T_INT;
 		loc1 = qtmpgen(tmp, sytype);
 		*type = 0;
 		emit(op, var1, var2, tmp);
 	}
-	printf("<表达式>\n");
-	fprintf(out, "<表达式>\n");
+	if (GRAMMER) { fprintf(out, "<表达式>\n"); }
 	return loc1;
 }
 
 //＜项＞     ::= ＜因子＞{＜乘法运算符＞＜因子＞}
-int term(int *type, int * index, int * itype) {
+int term (int *type, int * index, int * itype) {
 	int loc1, loc2, type1, type2, sytype;
 	enum qt_op op;
 	char var1[MAX_IDEN], var2[MAX_IDEN];
@@ -1360,13 +1357,13 @@ int term(int *type, int * index, int * itype) {
 		getsym();
 		loc2 = factor(type, index, itype);
 		type2 = qtvargen(var2, *type, *index, *itype, loc2);
-		sytype = (type1 == T_CHAR && type2 == T_CHAR) ? T_CHAR : T_INT;
+		//sytype = (type1 == T_CHAR && type2 == T_CHAR) ? T_CHAR : T_INT;
+		sytype = T_INT;
 		loc1 = qtmpgen(tmp, sytype);
 		*type = 0;
 		emit(op, var1, var2, tmp);
 	}
-	printf("<项>\n");
-	fprintf(out, "<项>\n");
+	if (GRAMMER) { fprintf(out, "<项>\n"); }
 	return loc1;
 }
 
@@ -1386,23 +1383,25 @@ int factor(int *type, int *index, int *itype) {
 			getsym();
 			if (sym == LBRACK) {
 				getsym();
-				while (sym != RBRACK) {
+				while (sym != RBRACK && sym != SEMICN) {
 					if (sym == IDEN && lookup(iden)<0) {
 						error(6);
 					}
 					getsym();
 				}
-				getsym();
+				if (sym == RBRACK) { getsym(); }//若为分号则不必继续读
+				else { error(10); }
 			}
-			else if (sym == LPARENT) {
+			else if (sym == LPARENT) {//没有右括号怎么办
 				getsym();
-				while (sym != RPARENT) {
+				while (sym != RPARENT && sym != SEMICN) {
 					if (sym == IDEN && lookup(iden)<0) {
 						error(6);
 					}
 					getsym();
 				}
-				getsym();
+				if (sym == RPARENT) { getsym(); }
+				else { error(9); }
 			}
 		}
 		else {
@@ -1415,8 +1414,8 @@ int factor(int *type, int *index, int *itype) {
 				if (tab.symtab[loc].para) {//若为有参函数
 					if (sym != LPARENT) {//函数无左括号,直接读到分号结束
 						error(16);
-						while (sym != PLUS || sym != MINU || 
-							sym != MULT || sym != DIV || sym != SEMICN) 
+						while (sym != PLUS && sym != MINU && 
+							sym != MULT && sym != DIV && sym != SEMICN) 
 						{ getsym();}
 					}else{
 						getsym();
@@ -1458,6 +1457,37 @@ int factor(int *type, int *index, int *itype) {
 			}
 			else {//标识符
 				getsym();
+				if (sym == LPARENT) {//函数调用(局部变量与函数重名)
+					loc = lkupFunc(iden);
+					if (tab.symtab[loc].type == 0) {//若该函数为void
+						error(23);
+					}
+					if (tab.symtab[loc].para) {//若为有参函数
+						if (sym != LPARENT) {//函数无左括号,直接读到分号结束
+							error(16);
+							while (sym != PLUS && sym != MINU &&
+								sym != MULT && sym != DIV && sym != SEMICN)
+							{
+								getsym();
+							}
+						}
+						else {
+							getsym();
+							loc = qtmpgen(tmp, pfuncall(loc));
+						}
+					}
+					else {
+						loc = qtmpgen(tmp, npfuncall(loc));
+						if (sym == LPARENT) {
+							error(34);
+							getsym();
+							while (sym != RPARENT) { getsym(); }
+							getsym();
+						}
+					}
+
+					emit(MOV, "~$V0", "", tmp);//运行栈相关
+				}
 			}
 		}
 	}
@@ -1488,13 +1518,36 @@ int factor(int *type, int *index, int *itype) {
 			getsym();
 		}
 		else {
-			loc = -1;
+			loc = -233;
 			error(15);
-			getsym();
+			if (sym != SEMICN && sym != PLUS &&
+				sym != MINU && sym != MULT && 
+				sym != DIV) { getsym(); }
 		}
 	}
-	printf("<因子>\n");
-	fprintf(out, "<因子>\n");
+	if (GRAMMER) { fprintf(out, "<因子>\n"); }
 	return loc;
 }
 
+//仅仅做函数的查询
+int lkupFunc(char *name) {
+	int iter;
+	for (iter = btotal; iter >= 1; iter--) {//查询函数名
+		if (strcmpi(name, tab.symtab[tab.btab[iter]].name) == 0) {
+			return tab.btab[iter];
+		}
+	}
+	return -1;
+}
+
+//将标签表植入到四元式表
+void labelPro() {
+	int i;
+	for (i = 0; i < qtx; i++) {
+		Qt entry = qtab[i];
+		if (qltab[i] != -1) {
+			//fprintf(tabout, "%s:", ltab[qltab[i]]);
+			qtab[i].label = qltab[i];
+		}
+	}
+}

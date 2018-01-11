@@ -1,0 +1,73 @@
+int test_embedding(int a1, int a2, int a3, int a4, int a5, int a6, int a7, char a8, int j, char a9, int a10, int a11){
+	int array[11], sum, tmp;
+	
+	while(1){
+		if(j >= 11) j = j - (j / 11) * 11;else;
+		switch(j){
+			case 1 : {
+				a2 = a2 * 2;
+				array[j] = a2;
+			}
+			case 0 : {
+				tmp = (a1 * 1) + ((a2 * 2) + ((a3 * 3) * (a4 * 7) - a5 * 14 / 2  + a6 + 3 * a7 * test_embedding(a2, a3, a4, a5, a6, a7, a1, a9, j + 2, a8, a11, a11)) * (a8 - 5)) * 2;
+				printf(" | tmp : ", tmp);
+				array[j] = a1;
+				sum = 0;
+				while(j < 11)
+				{
+					if(j == 10){
+						sum = array[j] + sum;
+					}else;
+					if(j < 10) sum = array[j + 1] + sum + array[j];
+					else;
+j = j + 2;
+				}
+				printf(" | sum : ", sum);
+				printf(" | ");
+				return ((a9 + a8) * (a3 + a4));
+			}
+			case 2 : {
+				a3 = a3 * 3;
+				array[j] = a3;
+			}
+			case 3 : {
+				a4 = a4 * 4;
+				array[j] = a4;
+			}
+			case 5 : {
+				a6 = a6 * 6;
+				array[j] = a6;
+			}
+			case 6 : {
+				a7 = a7 * 7;
+				array[j] = a7;
+			}
+			case 4 : {
+				a5 = a5 * 5;
+				array[j] = a5;
+			}
+			case 8 : {
+				if(a10 == a11){
+					return ((a1 + a2) * (a3 + a4));
+				}
+				else;
+				array[j] = a9 * 9;
+			}
+			case 7 : {;
+				array[j] = a8 * 8;
+			}
+			case 9 : {
+				a10 = a10 * 10;
+				array[j] = a10;
+			}
+			case 10 : {
+				a11 = a11 * 11;
+				array[j] = a11;
+			}
+		}
+		j = j + 3;
+	}
+}
+
+void main(){printf(" | test_embedding : ", test_embedding(1, 2, 3, 4, 5, 6, 7, 'e', 3, 'a', 10, 11));
+	}

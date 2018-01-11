@@ -2,22 +2,35 @@
 #include "global.h"
 #include "lex.h"
 #include "GSAnlz.h"
+#include "opt.h"
 #include "tomips.h"
 
 void printtab() {
-	int i, j ;
-	/*for (i = 0; i < tx; i++) {
-		symentry entry = tab.symtab[i];
-		fprintf(stab, "%s\t%d\t%d\t%d\t%d\t%d\t%d\n", entry.name,
-			entry.kind, entry.type, entry.value, entry.sz, entry.address, entry.para);
-	}*/
+	int i, j, k;
+	k = 0;
 	for (i = 0; i < qtx; i++) {
 		Qt entry = qtab[i];
-		if (qltab[i] != -1) {
-			fprintf(tabout, "%s:\n", ltab[qltab[i]]);
+		if (qtab[i].label != -1) {
+			//fprintf(tabout, "%s:", ltab[qltab[i]]);
+			fprintf(tabout, "%s:", ltab[entry.label]);
 		}
-		fprintf(tabout, "%10s\t%10s\t%10s\t%10s\n", qt_op_name[entry.op], entry.var1, entry.var2, entry.var3);
+		if (entry.op == ADD || entry.op == SUB ||
+			entry.op == MUL || entry.op == DIVV) {
+			fprintf(tabout, "%10s=\t%10s\t%10s\t%10s\n", entry.var3, entry.var1, qt_op_name[entry.op], entry.var2);
+		}
+		else if (entry.op == MOV) {
+			fprintf(tabout, "%10s=\t%10s\n", entry.var3, entry.var1);
+		}
+		else {
+			fprintf(tabout, "%10s\t%10s\t%10s\t%10s\n", qt_op_name[entry.op], entry.var1, entry.var2, entry.var3);
+		}
+		/*if (entry.var1[0] == '$' || entry.var2[0] == '$' ||
+			entry.var3[0] == '$') { printf("%10s\t%10s\t%10s\t%10s\n", qt_op_name[entry.op], entry.var1, entry.var2, entry.var3); }*/
+		/*if (entry.var1[0] == '$') { k++; }
+		if (entry.var2[0] == '$') { k++; }
+		if (entry.var3[0] == '$') { k++; }*/
 	}
+	//printf("all the tmp var:%d\t%d\n", k, tmpx*2);
 }
 
 int main() {
@@ -42,56 +55,29 @@ int main() {
 		printf("mipsOut open error\n");
 	}
 
+	//四元式对应的label表的初始化
 	for (i = 0; i < MAX_QTAB_ENTRY; i++) {
 		qltab[i] = -1;
 	}
 
+	/*int a[] = { 1,2,3,4,5 }, b[] = { 7,8,9,10,11 };
+	int k = 1, j = 1;
+	a[k++] = b[j++];
+	for (i = 0; i < 5; i++) {
+		printf("a[%d]:%d\vb[%d]:%d\t", i, a[i], i, b[i]);
+	}
+	printf("\n\nk:%d\tj:%d\n", k, j);*/
 	getsym();
 	program();
 	printtab();
-	toMips();
-	/*output the table
-	int i = 0;
-	while (!end_flag) {
-	getsym();
-	fprintf(out, "%d\t", ++i);
-	switch (sym) {
-	case IDEN: {
-	fprintf(out, "%s\t\t%s\n", word_out[sym], iden);
-	break;
+	optimize();
+	fprintf(tabout, "AFTER OPTIMIZED:\n");
+	printtab();
+	//regDis();
+	if (!error_flag) { 
+		toMips(); 
+		//printf("目标代码请查看mipsOut.txt");
 	}
-	case 1: {
-	fprintf(out, "%s\t\t%d\n", word_out[sym], num);
-	break;
-	}
-	case 2: {
-	fprintf(out, "%s\t\t%c\n", word_out[sym], chcon);
-	break;
-	}
-	case 3: {
-	fprintf(out, "%s\t\t%s\n", word_out[sym], strcon);
-	break;
-	}
-	case 4:case 5:case 6:case 7: case 8: case 9:case 10:
-	case 11:case 12:case 13:case 14:case 15:case 16:case 17:{
-	fprintf(out, "%s\t\t%s\n", word_out[sym], rword[sym - 4]);
-	break;
-	}
-	case 18:case 19:case 20:case 21:case 22:case 23:
-	case 24:case 25:case 26:case 27: {
-	fprintf(out, "%s\t\t%s\n", word_out[sym], rop[sym - 18]);
-	break;
-	}
-	case 28:case 29:case 30:case 31:case 32:case 33:
-	case 34:case 35:case 36:case 37:case 38:case 39:{
-	fprintf(out, "%s\t\t%s\n", word_out[sym], rpt[sym - 28]);
-	break;
-	}
-	}
-	}*/
-
-	//getsym();
-	//program();
 	fclose(in);
 	fclose(out);
 	fclose(err);

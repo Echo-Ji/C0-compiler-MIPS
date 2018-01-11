@@ -30,155 +30,192 @@ char * rpt[] = {
 
 void error(int errcode) {
 	switch (errcode) {
-		case 0: {
+	case 0: {
+		if (DEBUG) { printf("行%d\t列%d\t：多位无符号整数不能有前导零\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：多位无符号整数不能有前导零\n", line_num, cc);
 		break;
 	}
 	case 1: {
+		if (DEBUG) { printf("行%d\t列%d\t：字符常量为非法字符\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：字符常量为非法字符\n", line_num, cc);
 		break;
 	}
 	case 2: {
+		if (DEBUG) { printf("行%d\t列%d\t：字符常量缺少缺少单引号\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：字符常量缺少缺少单引号\n", line_num, cc);
 		break;
 	}
 	case 3: {
+		if (DEBUG) { printf("行%d\t列%d\t：非法Token\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：非法Token\n", line_num, cc);
 		break;
 	}
 	case 4: {
+		if (DEBUG) { printf("行%d\t列%d\t：字符串常量包含非法字符\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：字符串常量包含非法字符\n", line_num, cc);
 		break;
 	}
 	case 5: {
+		if (DEBUG) { printf("行%d\t列%d\t：字符串常量越界或缺少双引号\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：字符串常量越界或缺少双引号\n", line_num, cc);
 		break;
 	}
 	case 6: {
+		if (DEBUG) { printf("行%d\t列%d\t：标识符未声明\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：标识符未声明\n", line_num, cc);
 		break;
 	}
 	case 7: {
 		if (sym != IDEN) {
+			if (DEBUG) { printf("行%d\t列%d\t：标识符重定义\n", line_num, cc-1); }
 			fprintf(err, "行%d\t列%d\t：标识符重定义\n", line_num, cc-1);
 		}
 		else {
+			if (DEBUG) { printf("行%d\t列%d\t：标识符重定义\n", line_num, cc); }
 			fprintf(err, "行%d\t列%d\t：标识符重定义\n", line_num, cc);
 		}
 		break;
 	}
 	case 8: {
+		if (DEBUG) { printf("行%d\t列%d\t：符号表溢出\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：符号表溢出\n", line_num, cc);
 		exit(0);
 		break;
 	}
 	case 9: {
-		fprintf(err, "行%d\t列%d\t：缺失右小括号\n", line_num, cc);
+		if (DEBUG) { printf("行%d\t列%d\t：应输入\")\"\n", line_num, cc); }
+		fprintf(err, "行%d\t列%d\t：应输入\")\"\n", line_num, cc);
 		break;
 	}
 	case 10: {
-		fprintf(err, "行%d\t列%d\t：缺失右方括号\n", line_num, cc);
+		if (DEBUG) { printf("行%d\t列%d\t：应输入\"]\"\n", line_num, cc); }
+		fprintf(err, "行%d\t列%d\t：应输入\"]\"\n", line_num, cc);
 		break;
 	}
 	case 11: {
-		fprintf(err, "行%d\t列%d\t：缺失右花括号\n", line_num, cc);
+		if (DEBUG) { printf("行%d\t列%d\t：应输入\"}\"\n", line_num, cc); }
+		fprintf(err, "行%d\t列%d\t：应输入\"}\"\n", line_num, cc);
 		break;
 	}
 	case 12: {
-		fprintf(err, "行%d\t列%d\t：缺失分号\n", line_num, cc);
+		if (DEBUG) { printf("行%d\t列%d\t：应输入\";\"\n", line_num, cc); }
+		fprintf(err, "行%d\t列%d\t：应输入\";\"\n", line_num, cc);
 		break;
 	}
 	case 13: {
+		if (DEBUG) { printf("行%d\t列%d\t：数组范围应为无符号整数\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：数组范围应为无符号整数\n", line_num, cc);
 		break;
 	}
 	case 14: {
+		if (DEBUG) { printf("行%d\t列%d\t：赋值语句右边出现非法符号\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：赋值语句右边出现非法符号\n", line_num, cc);
 		break;
 	}
 	case 15: {
+		if (DEBUG) { printf("行%d\t列%d\t：立即数丢失\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：立即数丢失\n", line_num, cc);
 		break;
 	}
 	case 16: {
-		fprintf(err, "行%d\t列%d\t：缺失左小括号\n", line_num, cc);
+		if (DEBUG) { printf("行%d\t列%d\t：应输入\"(\"\n", line_num, cc); }
+		fprintf(err, "行%d\t列%d\t：应输入\"(\"\n", line_num, cc);
 		break;
 	}
 	case 17: {
-		fprintf(err, "行%d\t列%d\t：缺失左方括号\n", line_num, cc);
+		if (DEBUG) { printf("行%d\t列%d\t：应输入\"[\"\n", line_num, cc); }
+		fprintf(err, "行%d\t列%d\t：应输入\"[\"\n", line_num, cc);
 		break;
 	}
 	case 18: {
-		fprintf(err, "行%d\t列%d\t：缺失左花括号\n", line_num, cc-1);
+		if (DEBUG) { printf("行%d\t列%d\t：应输入\"{\"\n", line_num, cc); }
+		fprintf(err, "行%d\t列%d\t：应输入\"{\"\n", line_num, cc-1);
 		break;
 	}
 	case 19: {
+		if (DEBUG) { printf("行%d\t列%d\t：缺失\"else\"关键字\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：缺失\"else\"关键字\n", line_num, cc);
 		break;
 	}
 	case 20: {
-		fprintf(err, "行%d\t列%d\t：缺失冒号\n", line_num, cc);
+		if (DEBUG) { printf("行%d\t列%d\t：应输入\":\"\n", line_num, cc); }
+		fprintf(err, "行%d\t列%d\t：应输入\":\"\n", line_num, cc);
 		break;
 	}
 	case 21: {
+		if (DEBUG) { printf("行%d\t列%d\t：非法常量\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：非法常量\n", line_num, cc);
 		break;
 	}
 	case 22: {
+		if (DEBUG) { printf("行%d\t列%d\t：不合法语句\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：不合法语句\n", line_num, cc);
 		break;
 	}
 	case 23: {
+		if (DEBUG) { printf("行%d\t列%d\t：表达式类型不匹配\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：表达式类型不匹配\n", line_num, cc);
 		break;
 	}
 	case 24: {
+		if (DEBUG) { printf("行%d\t列%d\t：数组越界\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：数组越界\n", line_num, cc);
 		break;
 	}
 	case 25: {
+		if (DEBUG) { printf("行%d\t列%d\t：函数调用中参数类型或个数不匹配\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：函数调用中参数类型或个数不匹配\n", line_num, cc);
 		break;
 	}
 	case 26: {
+		if (DEBUG) { printf("行%d\t列%d\t：不期望的标识符类型\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：不期望的标识符类型\n", line_num, cc);
 		break;
 	}
 	case 27: {
+		if (DEBUG) { printf("行%d\t列%d\t：赋值语句缺失\"=\"\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：赋值语句缺失\"=\"\n", line_num, cc);
 		break;
 	}
 	case 28: {
+		if (DEBUG) { printf("行%d\t列%d\t：字符串表溢出\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：字符串表溢出\n", line_num, cc);
 		exit(0);
 		break;
 	}
 	case 29: {
+		if (DEBUG) { printf("行%d\t列%d\t：有返回值函数缺失return语句\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：有返回值函数缺失return语句\n", line_num, cc);
 		//exit(0);
 		break;
 	}
 	case 30: {
+		if (DEBUG) { printf("行%d\t列%d\t：此声明没有类型说明符\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：此声明没有类型说明符\n", line_num, cc);
 		break;
 	}
 	case 31: {
+		if (DEBUG) { printf("行%d\t列%d\t：无参函数声明不期望有小括号\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：无参函数声明不期望有小括号\n", line_num, cc);
 		break;
 	}
 	case 32: {
+		if (DEBUG) { printf("行%d\t列%d\t：不期望的返回值类型\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：不期望的返回值类型\n", line_num, cc);
 		break;
 	}
 	case 33: {
+		if (DEBUG) { printf("行%d\t列%d\t：不期望的右括号(表达式不能为空)\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：不期望的右括号(表达式不能为空)\n", line_num, cc);
 		break;
 	}
 	case 34: {
+		if (DEBUG) { printf("行%d\t列%d\t：无参函数调用不期望有小括号\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：无参函数调用不期望有小括号\n", line_num, cc);
 		break;
 	}
 	case 233: {
+		if (DEBUG) { printf("行%d\t列%d\t：源文件不完整\n", line_num, cc); }
 		fprintf(err, "行%d\t列%d\t：源文件不完整\n", line_num, cc);
 		break;
 	}
@@ -246,7 +283,7 @@ void getsym()
 		j = RESERVE_WORD_NUM - 1;
 		while (i <= j) {
 			k = (i + j) / 2;
-			if (!(r = strcmp(iden, rword[k])))//若相等
+			if (!(r = strcmpi(iden, rword[k])))//若相等
 			{
 				sym = rwsym[k];
 				if (k == 1) {//CHARTK在rwsym中的位置
@@ -422,5 +459,6 @@ void getsym()
 	}
 	else {
 		error(3);
+		getch();
 	}
 }

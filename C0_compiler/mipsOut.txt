@@ -1,1697 +1,1621 @@
 .data
-_MAX:	.word	10	#const int
-_A:	.word	'a'	#const char
-_plus:	.word	'+'	#const char
-_minus:	.word	'-'	#const char
-_mult:	.word	'*'	#const char
-_div:	.word	'/'	#const char
-_n:	.word	0	#int var
-_x:	.word	0	#int var
-_y:	.word	0	#int var
-_kind:	.word	0	#int var
-_m:	.word	0	#int var
-_ans:	.word	0	#int var
-__a:	.word	0	#int var
-__b:	.word	0	#int var
-_ch:	.word	0	#char var
-_alphabet:	.space	104	#array of char
-__str0:	.ASCIIZ	" "
-__str1:	.ASCIIZ	"operation:"
-__str2:	.ASCIIZ	"operation:"
-__str3:	.ASCIIZ	"operation:"
-__str4:	.ASCIIZ	"operation:"
-__str5:	.ASCIIZ	"cannot div 0!!!"
-__str6:	.ASCIIZ	"operation kind is not in [+-*/]!!!"
-__str7:	.ASCIIZ	"expre:"
-__str8:	.ASCIIZ	"fibo:"
-__str9:	.ASCIIZ	"gcd:"
-__str10:	.ASCIIZ	"string:!#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
+_two:	.word	1	#const int
+_selectSortList:	.space	40	#array of int
+_quickSortList:	.space	40	#array of int
+_bucketSortList:	.space	40	#array of int
+_standard:	.space	40	#array of int
+__str0:	.ASCIIZ	" All Sort Algorithm Result Accepted!"
+__str1:	.ASCIIZ	" Select Sort Failed!"
+__str2:	.ASCIIZ	" Quick Sort Failed!"
+__str3:	.ASCIIZ	" Bucket Sort Failed!"
+__str4:	.ASCIIZ	" Next letter: "
+__str5:	.ASCIIZ	" Not a letter: "
+__str6:	.ASCIIZ	"Error operation!"
 
 .text
-addi	$sp,$sp,-40
+addi	$sp,$sp,-68
 add	$fp,$sp,$0
 j	main
 
-testDefine:
+sortInit:
 ######
+ori	$s2,$0,1
+ori	$s3,$0,2
+ori	$t8,$0,3
+ori	$t1,$0,4
+sw	$t1,-12($sp)
+ori	$s5,$0,5
+ori	$t3,$0,6
+ori	$t4,$0,7
+ori	$t9,$0,8
+ori	$t1,$0,9
+sw	$t1,-32($sp)
+ori	$t7,$0,10
+addi	$sp,$sp,-40	#local const alloc
+
+addi	$sp,$sp,-4	#local var alloc
+
+addi	$sp,$sp,-24	#alloc memory for temp var
+ori	$t1,$0,0
+addu	$s1,$0,$t1
+addu	$t1,$0,$t7
+addu	$t2,$0,$s3
+mul	$t1,$t1,$t2
+addu	$s4,$0,$t1
+addu	$t1,$0,$s4
+addu	$t2,$0,$s5
+div	$t1,$t2
+mflo	$t1
+addu	$s6,$0,$t1
+addu	$t1,$0,$s6
+ori	$t2,$0,6
+add	$t1,$t1,$t2
+addu	$s7,$0,$t1
+addu	$t1,$0,$t3
+addu	$t2,$0,$t4
+mul	$t1,$t1,$t2
+addu	$t5,$0,$t1
+ori	$t1,$0,0
+addu	$t2,$0,$t5
+div	$t1,$t2
+mflo	$t1
+addu	$t6,$0,$t1
+addu	$t1,$0,$s7
+addu	$t2,$0,$t6
+sub	$t1,$t1,$t2
 ori	$t0,$0,0
-sw	$t0,0($sp)
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$s2
 ori	$t0,$0,1
-sw	$t0,-4($sp)
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$t3
 ori	$t0,$0,2
-sw	$t0,-8($sp)
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$t8
 ori	$t0,$0,3
-sw	$t0,-12($sp)
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$t9
 ori	$t0,$0,4
-sw	$t0,-16($sp)
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$s5
 ori	$t0,$0,5
-sw	$t0,-20($sp)
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$s3
 ori	$t0,$0,6
-sw	$t0,-24($sp)
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
+lw	$t1,-12($fp)
 ori	$t0,$0,7
-sw	$t0,-28($sp)
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
+lw	$t1,-32($fp)
 ori	$t0,$0,8
-sw	$t0,-32($sp)
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$t4
 ori	$t0,$0,9
-sw	$t0,-36($sp)
-ori	$t0,$0,10
-sw	$t0,-40($sp)
-ori	$t0,$0,11
-sw	$t0,-44($sp)
-ori	$t0,$0,12
-sw	$t0,-48($sp)
-ori	$t0,$0,13
-sw	$t0,-52($sp)
-ori	$t0,$0,14
-sw	$t0,-56($sp)
-ori	$t0,$0,15
-sw	$t0,-60($sp)
-ori	$t0,$0,16
-sw	$t0,-64($sp)
-ori	$t0,$0,17
-sw	$t0,-68($sp)
-ori	$t0,$0,18
-sw	$t0,-72($sp)
-ori	$t0,$0,19
-sw	$t0,-76($sp)
-ori	$t0,$0,0
-sw	$t0,-80($sp)
-ori	$t0,$0,-1
-sw	$t0,-84($sp)
-ori	$t0,$0,-2
-sw	$t0,-88($sp)
-ori	$t0,$0,-3
-sw	$t0,-92($sp)
-ori	$t0,$0,-4
-sw	$t0,-96($sp)
-ori	$t0,$0,-5
-sw	$t0,-100($sp)
-ori	$t0,$0,-6
-sw	$t0,-104($sp)
-ori	$t0,$0,-7
-sw	$t0,-108($sp)
-ori	$t0,$0,-8
-sw	$t0,-112($sp)
-ori	$t0,$0,-9
-sw	$t0,-116($sp)
-ori	$t0,$0,-10
-sw	$t0,-120($sp)
-ori	$t0,$0,-11
-sw	$t0,-124($sp)
-ori	$t0,$0,-12
-sw	$t0,-128($sp)
-ori	$t0,$0,-13
-sw	$t0,-132($sp)
-ori	$t0,$0,-14
-sw	$t0,-136($sp)
-ori	$t0,$0,-15
-sw	$t0,-140($sp)
-ori	$t0,$0,-16
-sw	$t0,-144($sp)
-ori	$t0,$0,-17
-sw	$t0,-148($sp)
-ori	$t0,$0,-18
-sw	$t0,-152($sp)
-ori	$t0,$0,-19
-sw	$t0,-156($sp)
-ori	$t0,$0,0
-sw	$t0,-160($sp)
-ori	$t0,$0,1
-sw	$t0,-164($sp)
-ori	$t0,$0,2
-sw	$t0,-168($sp)
-ori	$t0,$0,3
-sw	$t0,-172($sp)
-ori	$t0,$0,4
-sw	$t0,-176($sp)
-ori	$t0,$0,5
-sw	$t0,-180($sp)
-ori	$t0,$0,6
-sw	$t0,-184($sp)
-ori	$t0,$0,7
-sw	$t0,-188($sp)
-ori	$t0,$0,8
-sw	$t0,-192($sp)
-ori	$t0,$0,9
-sw	$t0,-196($sp)
-ori	$t0,$0,10
-sw	$t0,-200($sp)
-ori	$t0,$0,11
-sw	$t0,-204($sp)
-ori	$t0,$0,12
-sw	$t0,-208($sp)
-ori	$t0,$0,13
-sw	$t0,-212($sp)
-ori	$t0,$0,14
-sw	$t0,-216($sp)
-ori	$t0,$0,15
-sw	$t0,-220($sp)
-ori	$t0,$0,16
-sw	$t0,-224($sp)
-ori	$t0,$0,17
-sw	$t0,-228($sp)
-ori	$t0,$0,18
-sw	$t0,-232($sp)
-ori	$t0,$0,19
-sw	$t0,-236($sp)
-ori	$t0,$0,48
-sw	$t0,-240($sp)
-ori	$t0,$0,49
-sw	$t0,-244($sp)
-ori	$t0,$0,50
-sw	$t0,-248($sp)
-ori	$t0,$0,51
-sw	$t0,-252($sp)
-ori	$t0,$0,52
-sw	$t0,-256($sp)
-ori	$t0,$0,53
-sw	$t0,-260($sp)
-ori	$t0,$0,54
-sw	$t0,-264($sp)
-ori	$t0,$0,55
-sw	$t0,-268($sp)
-ori	$t0,$0,56
-sw	$t0,-272($sp)
-ori	$t0,$0,57
-sw	$t0,-276($sp)
-add	$sp,$sp,-280	#local const alloc
-
-add	$sp,$sp,-840	#local var alloc
-
-jr	$ra
-fibo:
-sub	$sp,$sp,4	#formal parameters alloc
-add	$sp,$sp,-4	#local const alloc
-
-add	$sp,$sp,-28	#alloc memory for temp var
-lw	$t1,0($fp)
-ori	$t2,$0,0
-bge	$t1,$t2,label_0
-ori	$t1,$0,1
-sub	$t3,$0,$t1
-sw	$t3,-4($fp)
-lw	$s0,-4($fp)
-add	$v0,$s0,$0
-jr	$ra
-j	label_7
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+sw	$t1,($t2)
 label_0:
-lw	$t1,0($fp)
-ori	$t2,$0,0
-bne	$t1,$t2,label_2
-ori	$s0,$0,0
-add	$v0,$s0,$0
+addu	$t1,$0,$s1
+ori	$t2,$0,10
+bge	$t1,$t2,label_1
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_standard($t0)
+lw	$t1,($t2)
+addu	$s0,$0,$t1
+addu	$t1,$0,$s0
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_selectSortList($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$s0
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_quickSortList($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$s0
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_bucketSortList($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$s1
+addu	$t2,$0,$s2
+add	$t1,$t1,$t2
+addu	$s1,$0,$t1
+j	label_0
+label_1:
 jr	$ra
-j	label_7
+selectSort:
+addi	$sp,$sp,-12	#local var alloc
+
+addi	$sp,$sp,-12	#alloc memory for temp var
+ori	$t1,$0,0
+addu	$s1,$0,$t1
 label_2:
-lw	$t1,0($fp)
-ori	$t2,$0,1
-bne	$t1,$t2,label_4
-ori	$s0,$0,1
-add	$v0,$s0,$0
-jr	$ra
-j	label_7
+addu	$t1,$0,$s1
+ori	$t2,$0,10
+bge	$t1,$t2,label_3
+addu	$t1,$0,$s1
+addu	$s0,$0,$t1
+addu	$t1,$0,$s1
+addu	$s2,$0,$t1
 label_4:
-lw	$t1,0($fp)
-lw	,$t2,_MAX
-ble	$t1,$t2,label_6
-ori	$t1,$0,2
-sub	$t3,$0,$t1
-sw	$t3,-8($fp)
-lw	$s0,-8($fp)
-add	$v0,$s0,$0
-jr	$ra
-j	label_7
+addu	$t1,$0,$s0
+ori	$t2,$0,10
+bge	$t1,$t2,label_5
+addu	$t0,$0,$s0
+sll	$t0,$t0,2
+la	$t2,_selectSortList($t0)
+lw	$t1,($t2)
+addu	$s4,$0,$t1
+addu	$t0,$0,$s2
+sll	$t0,$t0,2
+la	$t2,_selectSortList($t0)
+lw	$t1,($t2)
+addu	$s5,$0,$t1
+addu	$t1,$0,$s4
+addu	$t2,$0,$s5
+bge	$t1,$t2,label_6
+addu	$t1,$0,$s0
+addu	$s2,$0,$t1
 label_6:
-lw	$t1,0($fp)
+addu	$t1,$0,$s0
 ori	$t2,$0,1
-sub	$t3,$t1,$t2
-sw	$t3,-12($fp)
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,-12($fp)
-sw	$s0,0($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-4
-jal	fibo
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-16($fp)
-lw	$t1,0($fp)
-ori	$t2,$0,2
-sub	$t3,$t1,$t2
-sw	$t3,-20($fp)
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,-20($fp)
-sw	$s0,0($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-4
-jal	fibo
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-24($fp)
-lw	$t1,-16($fp)
-lw	$t2,-24($fp)
-add	$t3,$t1,$t2
-sw	$t3,-28($fp)
-lw	$s0,-28($fp)
-add	$v0,$s0,$0
-jr	$ra
-label_7:
-jr	$ra
-upcase:
-sub	$sp,$sp,4	#formal parameters alloc
-add	$sp,$sp,-4	#local const alloc
-
-add	$sp,$sp,-4	#local var alloc
-
-add	$sp,$sp,-8	#alloc memory for temp var
-lw	$t1,0($fp)
-ori	$t2,$0,97
-blt	$t1,$t2,label_8
-lw	$t1,0($fp)
-ori	$t2,$0,122
-bgt	$t1,$t2,label_9
-lw	$t1,0($fp)
-ori	$t2,$0,97
-sub	$t3,$t1,$t2
-sw	$t3,-8($fp)
-lw	$t1,-8($fp)
-ori	$t2,$0,65
-add	$t3,$t1,$t2
-sw	$t3,-12($fp)
-lw	$s0,-12($fp)
-sw	$s0,-4($fp)
-lw	$s0,-4($fp)
-add	$v0,$s0,$0
-jr	$ra
-j	label_10
-label_9:
-lw	$s0,0($fp)
-add	$v0,$s0,$0
-jr	$ra
-label_10:
-j	label_11
+add	$t1,$t1,$t2
+addu	$s0,$0,$t1
+j	label_4
+label_5:
+addu	$t1,$0,$s1
+addu	$t2,$0,$s2
+bge	$t1,$t2,label_8
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_selectSortList($t0)
+lw	$t1,($t2)
+addu	$s0,$0,$t1
+addu	$t0,$0,$s2
+sll	$t0,$t0,2
+la	$t2,_selectSortList($t0)
+lw	$t1,($t2)
+addu	$s3,$0,$t1
+addu	$t1,$0,$s3
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_selectSortList($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$s0
+addu	$t0,$0,$s2
+sll	$t0,$t0,2
+la	$t2,_selectSortList($t0)
+sw	$t1,($t2)
 label_8:
-lw	$s0,0($fp)
-add	$v0,$s0,$0
+addu	$t1,$0,$s1
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addu	$s1,$0,$t1
+j	label_2
+label_3:
 jr	$ra
-label_11:
-jr	$ra
-lowcase:
-sub	$sp,$sp,4	#formal parameters alloc
-add	$sp,$sp,-4	#local const alloc
+quickSort:
+lw	$s4,0($fp)
+lw	$s5,-4($fp)
+addi	$sp,$sp,-8	#formal parameters alloc
 
-add	$sp,$sp,-4	#local var alloc
+addi	$sp,$sp,-16	#local var alloc
 
-add	$sp,$sp,-8	#alloc memory for temp var
-lw	$t1,0($fp)
-ori	$t2,$0,65
-blt	$t1,$t2,label_12
-lw	$t1,0($fp)
-ori	$t2,$0,90
-bgt	$t1,$t2,label_13
-lw	$t1,0($fp)
-ori	$t2,$0,65
-sub	$t3,$t1,$t2
-sw	$t3,-8($fp)
-lw	$t1,-8($fp)
-ori	$t2,$0,97
-add	$t3,$t1,$t2
-sw	$t3,-12($fp)
-lw	$s0,-12($fp)
-sw	$s0,-4($fp)
-lw	$s0,-4($fp)
-add	$v0,$s0,$0
-jr	$ra
-j	label_14
-label_13:
-lw	$s0,0($fp)
-add	$v0,$s0,$0
-jr	$ra
-label_14:
-j	label_15
+addi	$sp,$sp,-20	#alloc memory for temp var
+addu	$t1,$0,$s4
+addu	$s0,$0,$t1
+addu	$t1,$0,$s5
+addu	$s1,$0,$t1
+addu	$t1,$0,$s4
+addu	$t2,$0,$s5
+add	$t1,$t1,$t2
+addu	$s7,$0,$t1
+addu	$t1,$0,$s7
+ori	$t2,$0,2
+div	$t1,$t2
+mflo	$t1
+addu	$t5,$0,$t1
+addu	$t0,$0,$t5
+sll	$t0,$t0,2
+la	$t2,_quickSortList($t0)
+lw	$t1,($t2)
+addu	$s6,$0,$t1
+label_10:
+addu	$t1,$0,$s0
+addu	$t2,$0,$s1
+bge	$t1,$t2,label_11
 label_12:
-lw	$s0,0($fp)
-add	$v0,$s0,$0
-jr	$ra
+addu	$t0,$0,$s0
+sll	$t0,$t0,2
+la	$t2,_quickSortList($t0)
+lw	$t1,($t2)
+addu	$t3,$0,$t1
+addu	$t1,$0,$t3
+addu	$t2,$0,$s6
+bge	$t1,$t2,label_13
+addu	$t1,$0,$s0
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addu	$s0,$0,$t1
+j	label_12
+label_13:
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_quickSortList($t0)
+lw	$t1,($t2)
+addu	$t4,$0,$t1
+addu	$t1,$0,$t4
+addu	$t2,$0,$s6
+ble	$t1,$t2,label_15
+addu	$t1,$0,$s1
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addu	$s1,$0,$t1
+j	label_13
 label_15:
+addu	$t1,$0,$s0
+addu	$t2,$0,$s1
+bgt	$t1,$t2,label_16
+addu	$t0,$0,$s0
+sll	$t0,$t0,2
+la	$t2,_quickSortList($t0)
+lw	$t1,($t2)
+addu	$s2,$0,$t1
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_quickSortList($t0)
+lw	$t1,($t2)
+addu	$s3,$0,$t1
+addu	$t1,$0,$s3
+addu	$t0,$0,$s0
+sll	$t0,$t0,2
+la	$t2,_quickSortList($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$s2
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_quickSortList($t0)
+sw	$t1,($t2)
+addu	$t1,$0,$s0
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addu	$s0,$0,$t1
+addu	$t1,$0,$s1
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addu	$s1,$0,$t1
+label_16:
+j	label_10
+label_11:
+addu	$t1,$0,$s4
+addu	$t2,$0,$s1
+bge	$t1,$t2,label_18
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+#######real parameter pass
+sw	$s4,0($sp)
+sw	$s1,-4($sp)
+
+
+addu	$fp,$0,$sp
+jal	quickSort
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+label_18:
+addu	$t1,$0,$s0
+addu	$t2,$0,$s5
+bge	$t1,$t2,label_20
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+#######real parameter pass
+sw	$s0,0($sp)
+sw	$s5,-4($sp)
+
+
+addu	$fp,$0,$sp
+jal	quickSort
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+label_20:
 jr	$ra
-printspace:
+bucketSort:
+addi	$sp,$sp,-88	#local var alloc
+
+addi	$sp,$sp,-20	#alloc memory for temp var
+ori	$t1,$0,0
+addu	$s0,$0,$t1
+ori	$t1,$0,0
+addu	$s1,$0,$t1
+label_22:
+addu	$t1,$0,$s1
+ori	$t2,$0,20
+bge	$t1,$t2,label_23
+ori	$t1,$0,0
+addi	$t2,$fp,-8
+addu	$t0,$0,$s1
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$s1
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addu	$s1,$0,$t1
+j	label_22
+label_23:
+ori	$t1,$0,0
+addu	$s1,$0,$t1
+label_24:
+addu	$t1,$0,$s1
+ori	$t2,$0,10
+bge	$t1,$t2,label_25
+label_26:
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_bucketSortList($t0)
+lw	$t1,($t2)
+addu	$s5,$0,$t1
+addu	$t1,$0,$s0
+addu	$t2,$0,$s5
+bgt	$t1,$t2,label_27
+ori	$t1,$0,0
+addi	$t2,$fp,-8
+addu	$t0,$0,$s0
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$s0
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addu	$s0,$0,$t1
+j	label_26
+label_27:
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_bucketSortList($t0)
+lw	$t1,($t2)
+addu	$s2,$0,$t1
+addi	$t2,$fp,-8
+addu	$t0,$0,$s2
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+lw	$t1,($t2)
+addu	$s3,$0,$t1
+addu	$t1,$0,$s3
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addi	$t2,$fp,-8
+addu	$t0,$0,$s2
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$s1
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addu	$s1,$0,$t1
+j	label_24
+label_25:
+addu	$t1,$0,$s0
+ori	$t2,$0,0
+ble	$t1,$t2,label_29
+addu	$t1,$0,$s0
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addu	$s0,$0,$t1
+label_30:
+addi	$t2,$fp,-8
+addu	$t0,$0,$s0
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+lw	$t1,($t2)
+addu	$s6,$0,$t1
+addu	$t1,$0,$s6
+ori	$t2,$0,0
+ble	$t1,$t2,label_31
+addi	$t2,$fp,-8
+addu	$t0,$0,$s0
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+lw	$t1,($t2)
+addu	$s4,$0,$t1
+addu	$t1,$0,$s4
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addi	$t2,$fp,-8
+addu	$t0,$0,$s0
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$s1
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addu	$s1,$0,$t1
+addu	$t1,$0,$s0
+addu	$t0,$0,$s1
+sll	$t0,$t0,2
+la	$t2,_bucketSortList($t0)
+sw	$t1,($t2)
+j	label_30
+label_31:
+j	label_25
+label_29:
+jr	$ra
+sortResultJudge:
+addi	$sp,$sp,-4	#local var alloc
+
+addi	$sp,$sp,-24	#alloc memory for temp var
+ori	$t1,$0,0
+addu	$s0,$0,$t1
+label_32:
+addu	$t1,$0,$s0
+ori	$t2,$0,10
+bge	$t1,$t2,label_33
+addu	$t0,$0,$s0
+sll	$t0,$t0,2
+la	$t2,_selectSortList($t0)
+lw	$t1,($t2)
+addu	$s1,$0,$t1
+addu	$t1,$0,$s0
+lw	$t2,_two
+add	$t1,$t1,$t2
+addu	$s2,$0,$t1
+addu	$t1,$0,$s1
+addu	$t2,$0,$s2
+beq	$t1,$t2,label_34
+ori	$v0,$0,1
+jr	$ra
+label_34:
+addu	$t0,$0,$s0
+sll	$t0,$t0,2
+la	$t2,_quickSortList($t0)
+lw	$t1,($t2)
+addu	$s3,$0,$t1
+addu	$t1,$0,$s0
+lw	$t2,_two
+add	$t1,$t1,$t2
+addu	$s4,$0,$t1
+addu	$t1,$0,$s3
+addu	$t2,$0,$s4
+beq	$t1,$t2,label_36
+ori	$v0,$0,2
+jr	$ra
+label_36:
+addu	$t0,$0,$s0
+sll	$t0,$t0,2
+la	$t2,_bucketSortList($t0)
+lw	$t1,($t2)
+addu	$s5,$0,$t1
+addu	$t1,$0,$s0
+lw	$t2,_two
+add	$t1,$t1,$t2
+addu	$s6,$0,$t1
+addu	$t1,$0,$s5
+addu	$t2,$0,$s6
+beq	$t1,$t2,label_38
+ori	$v0,$0,3
+jr	$ra
+label_38:
+addu	$t1,$0,$s0
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addu	$s0,$0,$t1
+j	label_32
+label_33:
+ori	$v0,$0,0
+jr	$ra
+jr	$ra
+sortCheck:
+addi	$sp,$sp,-4	#local var alloc
+
+addi	$sp,$sp,-4	#alloc memory for temp var
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+addu	$fp,$0,$sp
+jal	sortInit
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+addu	$fp,$0,$sp
+jal	selectSort
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+#######real parameter pass
+ori	$t1,$0,0
+sw	$t1,0($sp)
+ori	$t1,$0,9
+sw	$t1,-4($sp)
+
+
+addu	$fp,$0,$sp
+jal	quickSort
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+addu	$fp,$0,$sp
+jal	bucketSort
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+addu	$fp,$0,$sp
+jal	sortResultJudge
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+move	$t1,$v0
+addu	$s1,$0,$t1
+addu	$t1,$0,$s1
+addu	$s0,$0,$t1
+addu	$t1,$0,$s0
+ori	$t2,$0,0
+bne	$t1,$t2,label_41
 li	$v0,4
 la	$a0,__str0
 syscall
-jr	$ra
-operation:
-sub	$sp,$sp,12	#formal parameters alloc
-add	$sp,$sp,-12	#local const alloc
-
-add	$sp,$sp,-36	#alloc memory for temp var
-lw	$t1,-8($fp)
+j	label_40
+label_41:
+addu	$t1,$0,$s0
 ori	$t2,$0,1
-bne	$t1,$t2,label_17
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-add	$t3,$t1,$t2
-sw	$t3,-12($fp)
+bne	$t1,$t2,label_42
 li	$v0,4
 la	$a0,__str1
 syscall
-lw	$a0,-12($fp)
-li	$v0,1
-syscall
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-add	$t3,$t1,$t2
-sw	$t3,-16($fp)
-lw	$s0,-16($fp)
-add	$v0,$s0,$0
-jr	$ra
-j	label_16
-label_17:
-lw	$t1,-8($fp)
+j	label_40
+label_42:
+addu	$t1,$0,$s0
 ori	$t2,$0,2
-bne	$t1,$t2,label_18
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-sub	$t3,$t1,$t2
-sw	$t3,-20($fp)
+bne	$t1,$t2,label_43
 li	$v0,4
 la	$a0,__str2
 syscall
-lw	$a0,-20($fp)
-li	$v0,1
-syscall
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-sub	$t3,$t1,$t2
-sw	$t3,-24($fp)
-lw	$s0,-24($fp)
-add	$v0,$s0,$0
-jr	$ra
-j	label_16
-label_18:
-lw	$t1,-8($fp)
+j	label_40
+label_43:
+addu	$t1,$0,$s0
 ori	$t2,$0,3
-bne	$t1,$t2,label_19
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-mul	$t3,$t1,$t2
-sw	$t3,-28($fp)
+bne	$t1,$t2,label_40
 li	$v0,4
 la	$a0,__str3
 syscall
-lw	$a0,-28($fp)
+label_40:
+jr	$ra
+Combinatorial:
+lw	$s1,0($fp)
+lw	$s0,-4($fp)
+addi	$sp,$sp,-8	#formal parameters alloc
+
+addi	$sp,$sp,-44	#alloc memory for temp var
+addu	$t1,$0,$s1
+addu	$t2,$0,$s0
+bne	$t1,$t2,label_45
+ori	$v0,$0,1
+jr	$ra
+j	label_48
+label_45:
+addu	$t1,$0,$s0
+ori	$t2,$0,0
+bne	$t1,$t2,label_47
+ori	$v0,$0,1
+jr	$ra
+j	label_48
+label_47:
+addu	$t1,$0,$s1
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addu	$s2,$0,$t1
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+#######real parameter pass
+sw	$s2,0($sp)
+sw	$s0,-4($sp)
+
+
+addu	$fp,$0,$sp
+jal	Combinatorial
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+move	$t1,$v0
+addu	$s3,$0,$t1
+addu	$t1,$0,$s1
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addu	$s4,$0,$t1
+addu	$t1,$0,$s0
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addu	$s5,$0,$t1
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+#######real parameter pass
+sw	$s4,0($sp)
+sw	$s5,-4($sp)
+
+
+addu	$fp,$0,$sp
+jal	Combinatorial
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+move	$t1,$v0
+addu	$s6,$0,$t1
+addu	$t1,$0,$s3
+addu	$t2,$0,$s6
+add	$t1,$t1,$t2
+addu	$s7,$0,$t1
+lw	$t1,_two
+ori	$t2,$0,2
+mul	$t1,$t1,$t2
+addu	$t3,$0,$t1
+ori	$t1,$0,99
+ori	$t2,$0,97
+sub	$t1,$t1,$t2
+addu	$t4,$0,$t1
+addu	$t1,$0,$t3
+addu	$t2,$0,$t4
+div	$t1,$t2
+mflo	$t1
+addu	$t5,$0,$t1
+addu	$t1,$0,$s7
+addu	$t2,$0,$t5
+add	$t1,$t1,$t2
+addu	$t6,$0,$t1
+addu	$t1,$0,$t6
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addu	$t7,$0,$t1
+addu	$v0,$0,$t7
+jr	$ra
+label_48:
+jr	$ra
+combinaCheck:
+addi	$sp,$sp,-12	#local var alloc
+
+addi	$sp,$sp,-4	#alloc memory for temp var
+li	$v0,5
+syscall
+addu	$s0,$0,$v0
+li	$v0,5
+syscall
+addu	$s1,$0,$v0
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+#######real parameter pass
+sw	$s0,0($sp)
+sw	$s1,-4($sp)
+
+
+addu	$fp,$0,$sp
+jal	Combinatorial
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+move	$t1,$v0
+addu	$s2,$0,$t1
+addu	$t1,$0,$s2
+addu	$s3,$0,$t1
+addu	$a0,$0,$s3
 li	$v0,1
 syscall
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-mul	$t3,$t1,$t2
-sw	$t3,-32($fp)
-lw	$s0,-32($fp)
-add	$v0,$s0,$0
 jr	$ra
-j	label_16
-label_19:
-lw	$t1,-8($fp)
-ori	$t2,$0,4
-bne	$t1,$t2,label_20
-lw	$t1,-4($fp)
-ori	$t2,$0,0
-beq	$t1,$t2,label_21
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-div	$t1,$t2
-mflo	$t3
-sw	$t3,-36($fp)
+nextLetter:
+lw	$s1,0($fp)
+addi	$sp,$sp,-4	#formal parameters alloc
+
+######
+ori	$s6,$0,97
+ori	$s7,$0,98
+ori	$t3,$0,99
+ori	$t4,$0,100
+ori	$t5,$0,101
+ori	$t6,$0,102
+ori	$t7,$0,103
+ori	$t8,$0,104
+ori	$t9,$0,105
+ori	$t1,$0,106
+sw	$t1,-36($sp)
+ori	$t1,$0,107
+sw	$t1,-40($sp)
+ori	$t1,$0,108
+sw	$t1,-44($sp)
+ori	$t1,$0,109
+sw	$t1,-48($sp)
+ori	$t1,$0,110
+sw	$t1,-52($sp)
+ori	$t1,$0,111
+sw	$t1,-56($sp)
+ori	$t1,$0,112
+sw	$t1,-60($sp)
+ori	$t1,$0,113
+sw	$t1,-64($sp)
+ori	$t1,$0,114
+sw	$t1,-68($sp)
+ori	$t1,$0,115
+sw	$t1,-72($sp)
+ori	$t1,$0,116
+sw	$t1,-76($sp)
+ori	$t1,$0,117
+sw	$t1,-80($sp)
+ori	$t1,$0,118
+sw	$t1,-84($sp)
+ori	$t1,$0,119
+sw	$t1,-88($sp)
+ori	$t1,$0,120
+sw	$t1,-92($sp)
+ori	$t1,$0,121
+sw	$t1,-96($sp)
+ori	$t1,$0,122
+sw	$t1,-100($sp)
+addi	$sp,$sp,-104	#local const alloc
+
+addi	$sp,$sp,-108	#local var alloc
+
+addi	$sp,$sp,-16	#alloc memory for temp var
+addu	$t1,$0,$s6
+addi	$t2,$fp,-108
+ori	$t0,$0,0
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$s7
+addi	$t2,$fp,-108
+ori	$t0,$0,1
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$t3
+addi	$t2,$fp,-108
+ori	$t0,$0,2
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$t4
+addi	$t2,$fp,-108
+ori	$t0,$0,3
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$t5
+addi	$t2,$fp,-108
+ori	$t0,$0,4
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$t6
+addi	$t2,$fp,-108
+ori	$t0,$0,5
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$t7
+addi	$t2,$fp,-108
+ori	$t0,$0,6
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$t8
+addi	$t2,$fp,-108
+ori	$t0,$0,7
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$t9
+addi	$t2,$fp,-108
+ori	$t0,$0,8
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-40($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,9
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-44($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,10
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-48($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,11
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-52($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,12
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-56($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,13
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-60($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,14
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-64($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,15
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-68($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,16
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-72($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,17
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-76($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,18
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-80($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,19
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-84($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,20
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-88($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,21
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-92($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,22
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-96($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,23
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-100($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,24
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+lw	$t1,-104($fp)
+addi	$t2,$fp,-108
+ori	$t0,$0,25
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+sw	$t1,($t2)
+addu	$t1,$0,$s1
+ori	$t2,$0,97
+blt	$t1,$t2,label_49
+addu	$t1,$0,$s1
+ori	$t2,$0,122
+bgt	$t1,$t2,label_50
+addu	$t1,$0,$s1
+ori	$t2,$0,97
+sub	$t1,$t1,$t2
+addu	$s4,$0,$t1
+addu	$t1,$0,$s4
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addu	$s0,$0,$t1
+addu	$t1,$0,$s0
+ori	$t2,$0,25
+ble	$t1,$t2,label_51
+ori	$t1,$0,0
+addu	$s0,$0,$t1
+label_51:
 li	$v0,4
 la	$a0,__str4
 syscall
-lw	$a0,-36($fp)
-li	$v0,1
+addi	$t2,$fp,-108
+addu	$t0,$0,$s0
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+lw	$t1,($t2)
+addu	$s2,$0,$t1
+addu	$a0,$0,$s2
+li	$v0,11
 syscall
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-div	$t1,$t2
-mflo	$t3
-sw	$t3,-40($fp)
-lw	$s0,-40($fp)
-add	$v0,$s0,$0
-jr	$ra
-j	label_22
-label_21:
+j	label_53
+label_50:
 li	$v0,4
 la	$a0,__str5
 syscall
-ori	$s0,$0,0
-add	$v0,$s0,$0
+addu	$a0,$0,$s1
+li	$v0,11
+syscall
+label_53:
+j	label_60
+label_49:
+addu	$t1,$0,$s1
+ori	$t2,$0,65
+blt	$t1,$t2,label_55
+addu	$t1,$0,$s1
+ori	$t2,$0,90
+bgt	$t1,$t2,label_56
+addu	$t1,$0,$s1
+ori	$t2,$0,65
+sub	$t1,$t1,$t2
+addu	$s5,$0,$t1
+addu	$t1,$0,$s5
+ori	$t2,$0,1
+add	$t1,$t1,$t2
+addu	$s0,$0,$t1
+addu	$t1,$0,$s0
+ori	$t2,$0,25
+ble	$t1,$t2,label_57
+ori	$t1,$0,0
+addu	$s0,$0,$t1
+label_57:
+li	$v0,4
+la	$a0,__str4
+syscall
+addi	$t2,$fp,-108
+addu	$t0,$0,$s0
+#######array addr compute
+sll	$t0,$t0,2
+sub	$t2,$t2,$t0
+lw	$t1,($t2)
+addu	$s3,$0,$t1
+addu	$a0,$0,$s3
+li	$v0,11
+syscall
+j	label_59
+label_56:
+li	$v0,4
+la	$a0,__str5
+syscall
+addu	$a0,$0,$s1
+li	$v0,11
+syscall
+label_59:
+j	label_60
+label_55:
+li	$v0,4
+la	$a0,__str5
+syscall
+addu	$a0,$0,$s1
+li	$v0,11
+syscall
+label_60:
 jr	$ra
-label_22:
-j	label_16
-label_20:
+letterCheck:
+addi	$sp,$sp,-8	#local var alloc
+
+li	$v0,5
+syscall
+addu	$s0,$0,$v0
+label_61:
+addu	$t1,$0,$s0
+ori	$t2,$0,0
+ble	$t1,$t2,label_62
+li	$v0,12
+syscall
+addu	$s1,$0,$v0
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+#######real parameter pass
+sw	$s1,0($sp)
+
+
+addu	$fp,$0,$sp
+jal	nextLetter
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+addu	$t1,$0,$s0
+ori	$t2,$0,1
+sub	$t1,$t1,$t2
+addu	$s0,$0,$t1
+j	label_61
+label_62:
+jr	$ra
+main:
+addi	$sp,$sp,-4	#local var alloc
+
+li	$v0,12
+syscall
+addu	$s0,$0,$v0
+addu	$t1,$0,$s0
+ori	$t2,$0,115
+bne	$t1,$t2,label_64
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+addu	$fp,$0,$sp
+jal	sortCheck
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+j	label_63
+label_64:
+addu	$t1,$0,$s0
+ori	$t2,$0,99
+bne	$t1,$t2,label_65
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+addu	$fp,$0,$sp
+jal	combinaCheck
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+j	label_63
+label_65:
+addu	$t1,$0,$s0
+ori	$t2,$0,110
+bne	$t1,$t2,label_66
+#######save the spot
+addi	$sp,$sp,-68
+sw	$ra,4($sp)
+sw	$fp,8($sp)
+sw	$s7,12($sp)
+sw	$s6,16($sp)
+sw	$s5,20($sp)
+sw	$s4,24($sp)
+sw	$s3,28($sp)
+sw	$s2,32($sp)
+sw	$s1,36($sp)
+sw	$s0,40($sp)
+sw	$t9,44($sp)
+sw	$t8,48($sp)
+sw	$t7,52($sp)
+sw	$t6,56($sp)
+sw	$t5,60($sp)
+sw	$t4,64($sp)
+sw	$t3,68($sp)
+addu	$fp,$0,$sp
+jal	letterCheck
+nop
+#######restore the spot
+addi	$sp,$fp,68
+lw	$ra,-64($sp)
+lw	$fp,-60($sp)
+lw	$s7,-56($sp)
+lw	$s6,-52($sp)
+lw	$s5,-48($sp)
+lw	$s4,-44($sp)
+lw	$s3,-40($sp)
+lw	$s2,-36($sp)
+lw	$s1,-32($sp)
+lw	$s0,-28($sp)
+sw	$t9,-24($sp)
+sw	$t8,-20($sp)
+sw	$t7,-16($sp)
+sw	$t6,-12($sp)
+sw	$t5,-8($sp)
+sw	$t4,-4($sp)
+sw	$t3,0($sp)
+j	label_63
+label_66:
 li	$v0,4
 la	$a0,__str6
 syscall
-ori	$t1,$0,1
-sub	$t3,$0,$t1
-sw	$t3,-44($fp)
-lw	$s0,-44($fp)
-add	$v0,$s0,$0
-jr	$ra
-label_16:
-jr	$ra
-display:
-sub	$sp,$sp,4	#formal parameters alloc
-add	$sp,$sp,-4	#local const alloc
-
-add	$sp,$sp,-8	#local var alloc
-
-add	$sp,$sp,-36	#alloc memory for temp var
-lw	$t1,0($fp)
-ori	$t2,$0,0
-bgt	$t1,$t2,label_23
-jr	$ra
-j	label_26
-label_23:
-lw	$t1,0($fp)
-ori	$t2,$0,26
-ble	$t1,$t2,label_25
-ori	$s0,$0,26
-sw	$s0,0($fp)
-j	label_26
-label_25:
-ori	$s0,$0,0
-sw	$s0,-4($fp)
-lw	$s0,_A
-sw	$s0,-8($fp)
-label_27:
-lw	$t1,-4($fp)
-lw	$t2,0($fp)
-bge	$t1,$t2,label_28
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,-8($fp)
-sw	$s0,0($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-4
-jal	upcase
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-12($fp)
-lw	$s0,-12($fp)
-lw	$t1,-4($fp)
-sll	$t2,$t1,2
-la	$t2,_alphabet($t2)
-sw	$s0,($t2)
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,-8($fp)
-sw	$s0,0($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-4
-jal	upcase
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-16($fp)
-lw	$s0,-16($fp)
-lw	$t1,-4($fp)
-sll	$t2,$t1,2
-la	$t2,_alphabet($t2)
-sw	$s0,($t2)
-lw	$t1,-4($fp)
-sll	$t2,$t1,2
-la	$t2,_alphabet($t2)
-lw	$s0,($t2)
-sw	$s0,-20($fp)
-lw	$a0,-20($fp)
-li	$v0,11
-syscall
-lw	$t1,-4($fp)
-ori	$t2,$0,1
-add	$t3,$t1,$t2
-sw	$t3,-24($fp)
-lw	$s0,-24($fp)
-sw	$s0,-4($fp)
-lw	$t1,-8($fp)
-ori	$t2,$0,1
-add	$t3,$t1,$t2
-sw	$t3,-28($fp)
-lw	$s0,-28($fp)
-sw	$s0,-8($fp)
-j	label_27
-label_28:
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-ori	$s0,$0,0
-sw	$s0,-4($fp)
-label_29:
-lw	$t1,-4($fp)
-lw	$t2,0($fp)
-bge	$t1,$t2,label_30
-lw	$t1,-4($fp)
-sll	$t2,$t1,2
-la	$t2,_alphabet($t2)
-lw	$s0,($t2)
-sw	$s0,-32($fp)
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,-32($fp)
-sw	$s0,0($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-4
-jal	lowcase
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-36($fp)
-lw	$s0,-36($fp)
-lw	$t1,-4($fp)
-sll	$t2,$t1,2
-la	$t2,_alphabet($t2)
-sw	$s0,($t2)
-lw	$t1,-4($fp)
-sll	$t2,$t1,2
-la	$t2,_alphabet($t2)
-lw	$s0,($t2)
-sw	$s0,-40($fp)
-lw	$a0,-40($fp)
-li	$v0,11
-syscall
-lw	$t1,-4($fp)
-ori	$t2,$0,1
-add	$t3,$t1,$t2
-sw	$t3,-44($fp)
-lw	$s0,-44($fp)
-sw	$s0,-4($fp)
-j	label_29
-label_30:
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-label_26:
-jr	$ra
-expre:
-add	$sp,$sp,-12	#local var alloc
-
-add	$sp,$sp,-32	#alloc memory for temp var
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,0($fp)
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,-4($fp)
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-add	$t3,$t1,$t2
-sw	$t3,-12($fp)
-ori	$t1,$0,2
-sub	$t3,$0,$t1
-sw	$t3,-16($fp)
-lw	$t1,-4($fp)
-lw	$t2,-16($fp)
-mul	$t3,$t1,$t2
-sw	$t3,-20($fp)
-lw	$t1,-20($fp)
-sub	$t3,$0,$t1
-sw	$t3,-24($fp)
-lw	$t1,-12($fp)
-lw	$t2,-24($fp)
-sub	$t3,$t1,$t2
-sw	$t3,-28($fp)
-ori	$t1,$0,2
-ori	$t2,$0,0
-mul	$t3,$t1,$t2
-sw	$t3,-32($fp)
-lw	$t1,-32($fp)
-sub	$t3,$0,$t1
-sw	$t3,-36($fp)
-lw	$t1,-28($fp)
-lw	$t2,-36($fp)
-add	$t3,$t1,$t2
-sw	$t3,-40($fp)
-lw	$s0,-40($fp)
-sw	$s0,-8($fp)
-li	$v0,4
-la	$a0,__str7
-syscall
-lw	$a0,-8($fp)
-li	$v0,1
-syscall
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-jr	$ra
-mod:
-sub	$sp,$sp,8	#formal parameters alloc
-add	$sp,$sp,-8	#local const alloc
-
-add	$sp,$sp,-4	#local var alloc
-
-add	$sp,$sp,-12	#alloc memory for temp var
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-div	$t1,$t2
-mflo	$t3
-sw	$t3,-12($fp)
-lw	$t1,-12($fp)
-lw	$t2,-4($fp)
-mul	$t3,$t1,$t2
-sw	$t3,-16($fp)
-lw	$t1,0($fp)
-lw	$t2,-16($fp)
-sub	$t3,$t1,$t2
-sw	$t3,-20($fp)
-lw	$s0,-20($fp)
-sw	$s0,-8($fp)
-lw	$s0,-8($fp)
-add	$v0,$s0,$0
-jr	$ra
-jr	$ra
-gcd:
-sub	$sp,$sp,8	#formal parameters alloc
-add	$sp,$sp,-8	#local const alloc
-
-add	$sp,$sp,-12	#alloc memory for temp var
-lw	$t1,-4($fp)
-ori	$t2,$0,0
-bne	$t1,$t2,label_31
-ori	$s0,$0,0
-add	$v0,$s0,$0
-jr	$ra
-j	label_34
-label_31:
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,0($fp)
-sw	$s0,0($sp)
-lw	$s0,-4($fp)
-sw	$s0,-4($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-8
-jal	mod
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-8($fp)
-lw	$t1,-8($fp)
-ori	$t2,$0,0
-bne	$t1,$t2,label_33
-lw	$s0,-4($fp)
-add	$v0,$s0,$0
-jr	$ra
-j	label_34
-label_33:
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,0($fp)
-sw	$s0,0($sp)
-lw	$s0,-4($fp)
-sw	$s0,-4($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-8
-jal	mod
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-12($fp)
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,-4($fp)
-sw	$s0,0($sp)
-lw	$s0,-12($fp)
-sw	$s0,-4($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-8
-jal	gcd
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-16($fp)
-lw	$s0,-16($fp)
-add	$v0,$s0,$0
-jr	$ra
-label_34:
-jr	$ra
-optimize:
-add	$sp,$sp,-32	#local var alloc
-
-add	$sp,$sp,-24	#alloc memory for temp var
-ori	$s0,$0,0
-sw	$s0,0($fp)
-ori	$s0,$0,1
-sw	$s0,-12($fp)
-ori	$s0,$0,1
-sw	$s0,-8($fp)
-label_35:
-lw	$t1,0($fp)
-ori	$t2,$0,10000
-bge	$t1,$t2,label_36
-lw	$t1,0($fp)
-ori	$t2,$0,1
-add	$t3,$t1,$t2
-sw	$t3,-32($fp)
-lw	$s0,-32($fp)
-sw	$s0,0($fp)
-lw	$t1,-12($fp)
-sub	$t3,$0,$t1
-sw	$t3,-36($fp)
-lw	$s0,-36($fp)
-sw	$s0,-16($fp)
-lw	$t1,-8($fp)
-lw	$t2,-16($fp)
-mul	$t3,$t1,$t2
-sw	$t3,-40($fp)
-lw	$s0,-40($fp)
-sw	$s0,-20($fp)
-lw	$t1,-12($fp)
-sub	$t3,$0,$t1
-sw	$t3,-44($fp)
-lw	$s0,-44($fp)
-sw	$s0,-24($fp)
-lw	$t1,-8($fp)
-lw	$t2,-24($fp)
-mul	$t3,$t1,$t2
-sw	$t3,-48($fp)
-lw	$s0,-48($fp)
-sw	$s0,-12($fp)
-lw	$t1,-20($fp)
-lw	$t2,-12($fp)
-add	$t3,$t1,$t2
-sw	$t3,-52($fp)
-lw	$s0,-52($fp)
-sw	$s0,-28($fp)
-lw	$s0,-28($fp)
-sw	$s0,-4($fp)
-j	label_35
-label_36:
-lw	$a0,-4($fp)
-li	$v0,1
-syscall
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-lw	$a0,-8($fp)
-li	$v0,1
-syscall
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-lw	$a0,-12($fp)
-li	$v0,1
-syscall
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-lw	$a0,-16($fp)
-li	$v0,1
-syscall
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-lw	$a0,-20($fp)
-li	$v0,1
-syscall
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-lw	$a0,-24($fp)
-li	$v0,1
-syscall
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-lw	$a0,-28($fp)
-li	$v0,1
-syscall
-jr	$ra
-process:
-add	$sp,$sp,-8	#local var alloc
-
-add	$sp,$sp,-20	#alloc memory for temp var
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,0($fp)
-lw	$t1,0($fp)
-ori	$t2,$0,97
-add	$t3,$t1,$t2
-sw	$t3,-8($fp)
-lw	$t1,-8($fp)
-ori	$t2,$0,1
-sub	$t3,$t1,$t2
-sw	$t3,-12($fp)
-lw	$s0,-12($fp)
-sw	$s0,-4($fp)
-lw	$t1,-4($fp)
-ori	$t2,$0,97
-bne	$t1,$t2,label_38
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	expre
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-j	label_37
-label_38:
-lw	$t1,-4($fp)
-ori	$t2,$0,98
-bne	$t1,$t2,label_39
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,_n
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,_n
-sw	$s0,0($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-4
-jal	fibo
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-16($fp)
-lw	$s0,-16($fp)
-sw	$s0,_ans
-li	$v0,4
-la	$a0,__str8
-syscall
-lw	$a0,_ans
-li	$v0,1
-syscall
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-j	label_37
-label_39:
-lw	$t1,-4($fp)
-ori	$t2,$0,99
-bne	$t1,$t2,label_40
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,_x
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,_y
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,_kind
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,_x
-sw	$s0,0($sp)
-lw	$s0,_y
-sw	$s0,-4($sp)
-lw	$s0,_kind
-sw	$s0,-8($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-12
-jal	operation
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-20($fp)
-lw	$s0,-20($fp)
-sw	$s0,_ans
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-j	label_37
-label_40:
-lw	$t1,-4($fp)
-ori	$t2,$0,100
-bne	$t1,$t2,label_41
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,_m
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,_m
-sw	$s0,0($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-4
-jal	display
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-j	label_37
-label_41:
-lw	$t1,-4($fp)
-ori	$t2,$0,101
-bne	$t1,$t2,label_42
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,__a
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,__b
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-#######real parameter pass
-lw	$s0,__a
-sw	$s0,0($sp)
-lw	$s0,__b
-sw	$s0,-4($sp)
-
-
-add	$fp,$sp,$0
-addi	$sp,$sp,-8
-jal	gcd
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-move	$s0,$v0
-sw	$s0,-24($fp)
-li	$v0,4
-la	$a0,__str9
-syscall
-lw	$a0,-24($fp)
-li	$v0,1
-syscall
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	printspace
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-j	label_37
-label_42:
-lw	$t1,-4($fp)
-ori	$t2,$0,102
-bne	$t1,$t2,label_43
-li	$v0,4
-la	$a0,__str10
-syscall
-j	label_37
-label_43:
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	optimize
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-label_37:
-jr	$ra
-main:
-add	$sp,$sp,-8	#local var alloc
-
-add	$sp,$sp,-4	#alloc memory for temp var
-ori	$s0,$0,0
-sw	$s0,0($fp)
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	testDefine
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-li	$v0,5
-syscall
-add	$s0,$0,$v0
-sw	$s0,-4($fp)
-label_44:
-lw	$t1,0($fp)
-lw	$t2,-4($fp)
-bge	$t1,$t2,label_45
-lw	$t1,0($fp)
-ori	$t2,$0,1
-add	$t3,$t1,$t2
-sw	$t3,-8($fp)
-lw	$s0,-8($fp)
-sw	$s0,0($fp)
-#######save the spot
-addi	$sp,$sp,-40
-sw	$ra,4($sp)
-sw	$fp,8($sp)
-sw	$s7,12($sp)
-sw	$s6,16($sp)
-sw	$s5,20($sp)
-sw	$s4,24($sp)
-sw	$s3,28($sp)
-sw	$s2,32($sp)
-sw	$s1,36($sp)
-sw	$s0,40($sp)
-add	$fp,$sp,$0
-jal	process
-nop
-#######restore the spot
-addi	$sp,$fp,40
-lw	$ra,-36($sp)
-lw	$fp,-32($sp)
-lw	$s7,-28($sp)
-lw	$s6,-24($sp)
-lw	$s5,-20($sp)
-lw	$s4,-16($sp)
-lw	$s3,-12($sp)
-lw	$s2,-8($sp)
-lw	$s1,-4($sp)
-lw	$s0,0($sp)
-j	label_44
-label_45:
-li	$v0,10
-syscall
+label_63:
 li	$v0,10
 syscall

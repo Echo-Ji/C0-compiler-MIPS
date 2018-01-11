@@ -1,0 +1,15 @@
+int fib_memoize[20];
+void init_fib_memoize{
+	int i;
+	
+	i = 0;
+	while(i <= 101)
+	{
+		fib_memoize[i] = 0;
+		i = i + 1;
+	}
+	fib_memoize[1] = 1;
+	fib_memoize[2] = 1;
+}
+
+void main(){}
